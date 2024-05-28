@@ -1,32 +1,31 @@
-export function createComponent(type, props, ...children) {
-  return {
-    type,
-    props: props || {},
-    children: children.flat(),
-  };
-}
-
-export function render(vNode, container) {
-  const dom = createDOMElement(vNode);
-  container.appendChild(dom);
-}
-
-function createDOMElement(vNode) {
-  if (typeof vNode === 'string') {
-    return document.createTextNode(vNode);
+export default class MiniFramework {
+  constructor(dom) {
+    this.dom = dom;
+    this.newDom = document.createElement('div');
+    this.newDom.setAttribute('id', 'root');
   }
 
-  const { type, props, children } = vNode;
-  const element = document.createElement(type);
+  NewElement = (tag, elClass, elText) => {
+    const newElement = document.createElement(tag);
+    if (elClass != null) {
+      newElement.classList = elClass;
+    }
+    if (elText != null) {
+      if (tag == 'button') {
+        newElement.textContent = elText;
+      } else {
+        newElement.innerHTML = elText;
+      }
+    }
+    return newElement;
+  };
 
-  Object.keys(props).forEach((key) => {
-    element[key] = props[key];
-  });
+  RenderChild(parent, child) {
+    parent.appendChild(child);
+  }
 
-  children.forEach((child) => {
-    element.appendChild(createDOMElement(child));
-  });
-
-  return element;
+  Render() {
+    this.dom.innerHTML = '';
+    this.dom.appendChild(this.newDom);
+  }
 }
-

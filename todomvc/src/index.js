@@ -1,20 +1,14 @@
-import { createComponent, render } from 'custom-framework';
+import MiniFramework from '../../mini-framework/index';
 
-const App = createComponent(
-  'div',
-  { className: 'app' },
-  createComponent('h1', null, 'TodoMVC'),
-  createComponent('input', {
-    type: 'text',
-    placeholder: 'What needs to be done?',
-  }),
-  createComponent(
-    'ul',
-    null,
-    createComponent('li', null, 'Sample Todo 1'),
-    createComponent('li', null, 'Sample Todo 2')
-  )
-);
+console.log('New connection!');
 
-const container = document.getElementById('app');
-render(App, container);
+const root = document.querySelector('#root');
+const fw = new MiniFramework(root);
+const firstElement = fw.NewElement('div', 'aClass', 'Some Text');
+
+const secondElement = fw.NewElement('div', 'bClass', 'Random stuff');
+fw.RenderChild(firstElement, secondElement);
+
+fw.RenderChild(fw.newDom, firstElement);
+
+fw.Render();
