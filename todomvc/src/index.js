@@ -1,20 +1,29 @@
-import { createComponent, render } from 'custom-framework';
+import { createElement, domElement, updateElement } from 'custom-framework';
 
-const App = createComponent(
-  'div',
-  { className: 'app' },
-  createComponent('h1', null, 'TodoMVC'),
-  createComponent('input', {
-    type: 'text',
-    placeholder: 'What needs to be done?',
-  }),
-  createComponent(
-    'ul',
-    null,
-    createComponent('li', null, 'Sample Todo 1'),
-    createComponent('li', null, 'Sample Todo 2')
-  )
+const a = domElement('ul', { class: 'list' },
+  domElement('li', null, 'item 1'),
+  domElement('li', null, 'item 2')
 );
 
-const container = document.getElementById('app');
-render(App, container);
+const b = domElement('ul', { class: 'list' },
+  domElement('li', null, 'item 1'),
+  domElement('li', null, 'hello')
+);
+console.log(a);
+console.log(b);
+
+
+const $app = document.getElementById('app');
+// const $reload = document.getElementById('reload');
+// $root.appendChild(createElement(a));
+const $reload = createElement({
+  type: 'div',
+  props: { id: 'reload' },
+  children: ['Reload']
+});
+$app.appendChild($reload);
+
+updateElement($app, a);
+$reload.addEventListener('click', () => {
+  updateElement($app, b, a);
+});
