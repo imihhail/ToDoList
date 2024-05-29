@@ -1,36 +1,52 @@
 import { createElement, domElement, updateElement } from 'custom-framework';
 
-const a = domElement('ul', { class: 'list' },
-  domElement('li', null, 'item 1'),
-  domElement('li', null, 'item 2')
+import './index.css';
+
+const f = domElement('ul', { style: 'list-style: none;' },
+    domElement('li', { className: 'item' }, 'item 1'),
+    domElement('li', { className: 'item' },
+    domElement('input', { type: 'checkbox', checked: true }),
+    domElement('input', { type: 'text', disabled: false })
+  ),
+  domElement('li', { forceUpdate: true }, 'text')
 );
 
-const b = domElement('ul', { class: 'list' },
-  domElement('li', null, 'item 1'),
-  domElement('li', null, 'hello')
+const g = domElement('ul', { style: 'list-style: none;' },
+    domElement('li', { className: 'item item2' }, 'item 1'),
+    domElement('li', { style: 'background: red;' },
+    domElement('input', { type: 'checkbox', checked: false }),
+    domElement('input', { type: 'text', disabled: true })
+  ),
+  domElement('li', { forceUpdate: true }, 'text')
 );
-console.log(a);
-console.log(b);
 
 
-const $app = document.getElementById('app');
-// const $reload = document.getElementById('reload');
-// $root.appendChild(createElement(a));
-const $reload = createElement({
+const app = document.getElementById('app');
+
+const reload = createElement({
   type: 'button',
   props: { id: 'reload' },
   children: ['Reload']
 });
-$app.appendChild($reload);
 
-let isA = true;
-updateElement($app, a);
+const alertButton = createElement({
+  type: 'button',
+  props: { id: 'alert', onClick: () => alert('hi!')},
+  children: ['Alert']
+});
 
-$reload.addEventListener('click', () => {
-  if (isA) {
-    updateElement($app, b, a, 1);
+app.appendChild(createElement(f));
+app.appendChild(reload);
+app.appendChild(alertButton);
+
+let change = true;
+
+
+reload.addEventListener('click', () => {
+  if (change) {
+    updateElement(app, g, f);
   } else {
-    updateElement($app, a, b, 1);
+    updateElement(app, f, g);
   }
-  isA = !isA;
+  change = !change;
 });
