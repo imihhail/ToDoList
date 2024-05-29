@@ -23,9 +23,14 @@ const $reload = createElement({
 });
 $app.appendChild($reload);
 
+let isA = true;
 updateElement($app, a);
 
 $reload.addEventListener('click', () => {
-  updateElement($app, b, a, 1);
-  console.log("CLICK")
+  if (isA) {
+    updateElement($app, b, a, 1);
+  } else {
+    updateElement($app, a, b, 1);
+  }
+  isA = !isA;
 });
