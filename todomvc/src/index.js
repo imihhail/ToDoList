@@ -35,6 +35,12 @@ const alertButton = createElement({
   children: ['Alert']
 });
 
+const realBoy = createElement({
+  type: 'button',
+  props: { id: 'realButton', onClick: () => alert('hi!')},
+  children: ['Alert']
+});
+
 app.appendChild(createElement(f));
 app.appendChild(reload);
 app.appendChild(alertButton);

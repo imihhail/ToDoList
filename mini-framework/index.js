@@ -19,13 +19,7 @@ function removeBooleanProp($target, name) {
   $target[name] = false;
 }
 
-function isEventProp(name) {
-  return /^on/.test(name);
-}
 
-function extractEventName(name) {
-  return name.slice(2).toLowerCase();
-}
 
 function isCustomProp(name) {
   return isEventProp(name) || name === 'forceUpdate';
@@ -74,6 +68,14 @@ function updateProps($target, newProps, oldProps = {}) {
   Object.keys(props).forEach(name => {
     updateProp($target, name, newProps[name], oldProps[name]);
   });
+}
+
+function isEventProp(name) {
+  return /^on/.test(name);
+}
+
+function extractEventName(name) {
+  return name.slice(2).toLowerCase();
 }
 
 function addEventListeners($target, props) {
