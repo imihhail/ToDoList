@@ -29,7 +29,11 @@ export default class MiniFramework {
     return target;
   }
 
-  Render(root, child) {
-    this.Point(root).appendChild(child);
+  Render(data) {
+    let element = this.NewElement(data.element, data.styleClass, data.content);
+    if (data.onClick != null) {
+      element.addEventListener('click', data.onClick);
+    }
+    this.Point(data.parent).appendChild(element);
   }
 }
