@@ -11,7 +11,17 @@ const fw = new MiniFramework(root);
 fw.Render({
   parent: 'root',
   element: 'div',
-  styleClass: "Container",
-  content: 'Some Text',
-  onClick: () => console.log('Im clicked'),
+  styleClass: 'Container',
+});
+
+fw.Render({
+  parent: 'Container',
+  element: 'button',
+  styleClass: 'buttom',
+  content: 'Click me!',
+  attri: ['id', '2'],
+  onClick: (e) =>
+    e.target.textContent == 'I was clicked!!!'
+      ? (e.target.textContent = 'Click me!')
+      : (e.target.textContent = 'I was clicked!!!'),
 });

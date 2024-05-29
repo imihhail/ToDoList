@@ -34,6 +34,9 @@ export default class MiniFramework {
     if (data.onClick != null) {
       element.addEventListener('click', data.onClick);
     }
+    if (data.attri != null) {
+      element.setAttribute(data.attri[0], data.attri[1]);
+    }
     this.Point(data.parent).appendChild(element);
   }
 }
