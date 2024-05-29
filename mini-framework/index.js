@@ -10,6 +10,13 @@ export function createElement(node) {
     return document.createTextNode(node);
   }
   const $el = document.createElement(node.type);
+
+  if (node.props) {
+    Object.keys(node.props).forEach(propName => {
+      $el.setAttribute(propName, node.props[propName]);
+    });
+  }
+  
   node.children
     .map(createElement)
     .forEach($el.appendChild.bind($el));

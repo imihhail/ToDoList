@@ -17,13 +17,15 @@ const $app = document.getElementById('app');
 // const $reload = document.getElementById('reload');
 // $root.appendChild(createElement(a));
 const $reload = createElement({
-  type: 'div',
+  type: 'button',
   props: { id: 'reload' },
   children: ['Reload']
 });
 $app.appendChild($reload);
 
 updateElement($app, a);
+
 $reload.addEventListener('click', () => {
-  updateElement($app, b, a);
+  updateElement($app, b, a, 1);
+  console.log("CLICK")
 });
