@@ -1,8 +1,6 @@
 export default class MiniFramework {
   constructor(dom) {
     this.dom = dom;
-    this.newDom = document.createElement('div');
-    this.newDom.setAttribute('id', 'root');
   }
 
   NewElement = (tag, elClass, elText) => {
@@ -20,12 +18,18 @@ export default class MiniFramework {
     return newElement;
   };
 
-  RenderChild(parent, child) {
-    parent.appendChild(child);
+  Point(item) {
+    let target = document.querySelector(`#${item}`);
+    if (target === null) {
+      target = document.querySelectorAll(`.${item}`);
+    }
+    if (target.length === 1) {
+      return target[0];
+    }
+    return target;
   }
 
-  Render() {
-    this.dom.innerHTML = '';
-    this.dom.appendChild(this.newDom);
+  Render(root, child) {
+    this.Point(root).appendChild(child);
   }
 }

@@ -4,11 +4,8 @@ console.log('New connection!');
 
 const root = document.querySelector('#root');
 const fw = new MiniFramework(root);
-const firstElement = fw.NewElement('div', 'aClass', 'Some Text');
+fw.Render('root', fw.NewElement('div', 'Container', 'Some Text'));
 
-const secondElement = fw.NewElement('div', 'bClass', 'Random stuff');
-fw.RenderChild(firstElement, secondElement);
+fw.Render('Container', fw.NewElement('div', 'Menu', 'Random stuff'));
 
-fw.RenderChild(fw.newDom, firstElement);
-
-fw.Render();
+fw.Render('Container', fw.NewElement('p', 'Content', 'Text for paragraph'));
