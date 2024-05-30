@@ -18,6 +18,18 @@ export default class MiniFramework {
     return newElement;
   };
 
+
+
+  StoreItem(value) {
+    let key = 0
+
+    localStorage.length > 0 ? key = localStorage.length : key = 0
+
+    localStorage.setItem(key, value)
+    key++
+    console.log("Storege", localStorage);
+  }
+ 
   Point(item) {
     let target = document.querySelector(`#${item}`);
     return target;
@@ -25,6 +37,7 @@ export default class MiniFramework {
 
   Render(data) {
     let element = this.NewElement(data.element, data.styleClass, data.content);
+    
     if (data.event != null) {
       element.addEventListener(data.event[0], data.event[1]);
     }

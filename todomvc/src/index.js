@@ -17,13 +17,28 @@ fw.Render({
 
 fw.Render({
   parent: 'Container',
+  element: 'input',
+  attri: ['id', 'toDo'],
+});
+
+fw.Render({
+  parent: 'Container',
   element: 'button',
   styleClass: 'buttom',
   content: 'Click me!',
   attri: ['id', '2'],
-  event: ['click', test]
+  event: ['click', test],
 });
 
 function test() {
-  console.log("Clicked");
+  const userInput = fw.Point('toDo').value
+  
+  fw.StoreItem(userInput)
+  console.log("Input Value: ", userInput);
 }
+
+
+// localStorage.setItem(key, value): Store a key-value pair.
+// localStorage.getItem(key): Retrieve the value associated with a key.
+// localStorage.removeItem(key): Remove a key-value pair.
+// localStorage.clear(): Clear all data stored in Local Storage.
