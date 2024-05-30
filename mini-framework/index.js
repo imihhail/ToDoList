@@ -1,6 +1,6 @@
 export default class MiniFramework {
   constructor() {
-    this.dom = this.Point("root");
+    this.dom = this.Point('root');
   }
 
   NewElement = (tag, elClass, elText) => {
@@ -31,6 +31,8 @@ export default class MiniFramework {
     if (data.attri != null) {
       element.setAttribute(data.attri[0], data.attri[1]);
     }
-    this.Point(data.parent).appendChild(element);
+    if (data.parent != null) {
+      this.Point(data.parent).appendChild(element);
+    }
   }
 }
