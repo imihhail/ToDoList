@@ -1,5 +1,7 @@
 ### NODE ###
 node_modules/
+mini-framework/dist/*
+todomvc/dist/*
 
 ### Git ###
 # Created by git for backups. To disable backups in Git:
