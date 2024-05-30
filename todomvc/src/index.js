@@ -12,6 +12,7 @@ fw.Render({
   parent: 'root',
   element: 'div',
   styleClass: 'Container',
+  attri: ['id', 'Container'],
 });
 
 fw.Render({
@@ -20,8 +21,9 @@ fw.Render({
   styleClass: 'buttom',
   content: 'Click me!',
   attri: ['id', '2'],
-  onClick: (e) =>
-    e.target.textContent == 'I was clicked!!!'
-      ? (e.target.textContent = 'Click me!')
-      : (e.target.textContent = 'I was clicked!!!'),
+  event: ['click', test]
 });
+
+function test() {
+  console.log("Clicked");
+}

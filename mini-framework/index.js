@@ -20,19 +20,13 @@ export default class MiniFramework {
 
   Point(item) {
     let target = document.querySelector(`#${item}`);
-    if (target === null) {
-      target = document.querySelectorAll(`.${item}`);
-    }
-    if (target.length === 1) {
-      return target[0];
-    }
     return target;
   }
 
   Render(data) {
     let element = this.NewElement(data.element, data.styleClass, data.content);
-    if (data.onClick != null) {
-      element.addEventListener('click', data.onClick);
+    if (data.event != null) {
+      element.addEventListener(data.event[0], data.event[1]);
     }
     if (data.attri != null) {
       element.setAttribute(data.attri[0], data.attri[1]);
