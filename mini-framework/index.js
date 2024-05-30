@@ -1,32 +1,36 @@
-export function createComponent(type, props, ...children) {
-  return {
-    type,
-    props: props || {},
-    children: children.flat(),
-  };
-}
-
-export function render(vNode, container) {
-  const dom = createDOMElement(vNode);
-  container.appendChild(dom);
-}
-
-function createDOMElement(vNode) {
-  if (typeof vNode === 'string') {
-    return document.createTextNode(vNode);
+export default class MiniFramework {
+  constructor(dom) {
+    this.dom = dom;
   }
 
-  const { type, props, children } = vNode;
-  const element = document.createElement(type);
+  NewElement = (tag, elClass, elText) => {
+    const newElement = document.createElement(tag);
+    if (elClass != null) {
+      newElement.classList = elClass;
+    }
+    if (elText != null) {
+      if (tag == 'button') {
+        newElement.textContent = elText;
+      } else {
+        newElement.innerHTML = elText;
+      }
+    }
+    return newElement;
+  };
 
-  Object.keys(props).forEach((key) => {
-    element[key] = props[key];
-  });
+  Point(item) {
+    let target = document.querySelector(`#${item}`);
+    return target;
+  }
 
-  children.forEach((child) => {
-    element.appendChild(createDOMElement(child));
-  });
-
-  return element;
+  Render(data) {
+    let element = this.NewElement(data.element, data.styleClass, data.content);
+    if (data.event != null) {
+      element.addEventListener(data.event[0], data.event[1]);
+    }
+    if (data.attri != null) {
+      element.setAttribute(data.attri[0], data.attri[1]);
+    }
+    this.Point(data.parent).appendChild(element);
+  }
 }
-

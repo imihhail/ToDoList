@@ -1,20 +1,29 @@
-import { createComponent, render } from 'custom-framework';
+import MiniFramework from '../../mini-framework/index';
 
-const App = createComponent(
-  'div',
-  { className: 'app' },
-  createComponent('h1', null, 'TodoMVC'),
-  createComponent('input', {
-    type: 'text',
-    placeholder: 'What needs to be done?',
-  }),
-  createComponent(
-    'ul',
-    null,
-    createComponent('li', null, 'Sample Todo 1'),
-    createComponent('li', null, 'Sample Todo 2')
-  )
-);
+console.log('New connection!');
 
-const container = document.getElementById('app');
-render(App, container);
+const root = document.querySelector('#root');
+const fw = new MiniFramework(root);
+// fw.Render('root', fw.NewElement('div', 'Container', 'Some Text'));
+// fw.Render('Container', fw.NewElement('div', 'Menu', 'Random stuff'));
+// fw.Render('Container', fw.NewElement('p', 'Content', 'Text for paragraph'));
+
+fw.Render({
+  parent: 'root',
+  element: 'div',
+  styleClass: 'Container',
+  attri: ['id', 'Container'],
+});
+
+fw.Render({
+  parent: 'Container',
+  element: 'button',
+  styleClass: 'buttom',
+  content: 'Click me!',
+  attri: ['id', '2'],
+  event: ['click', test]
+});
+
+function test() {
+  console.log("Clicked");
+}
