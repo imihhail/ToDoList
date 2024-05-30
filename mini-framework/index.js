@@ -1,6 +1,6 @@
 export default class MiniFramework {
-  constructor(dom) {
-    this.dom = dom;
+  constructor() {
+    this.dom = this.Point("root");
   }
 
   NewElement = (tag, elClass, elText) => {
