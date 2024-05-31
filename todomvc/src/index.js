@@ -1,5 +1,6 @@
 import MiniFramework from '../../mini-framework/index';
-const fw = new MiniFramework();
+
+export const fw = new MiniFramework();
 
 fw.Render({
   parent: 'root',
@@ -10,11 +11,17 @@ fw.Render({
 
 fw.Render({
   parent: 'Container',
+  element: 'input',
+  attri: ['id', 'toDo'],
+});
+
+fw.Render({
+  parent: 'Container',
   element: 'button',
   styleClass: 'buttom',
   content: 'Click me!',
   attri: ['id', '2'],
-  event: ['click', (e) => console.log(e)],
+  event: ['click', addTodo],
 });
 
 // Menu container inside Main Container
@@ -32,6 +39,17 @@ fw.Render({
   styleClass: 'contentContainer',
   attri: ['id', 'Content'],
 });
+
+// Todo list container
+fw.Render({
+  parent: 'Content',
+  element: 'div',
+  styleClass: 'ToDoContainer',
+  attri: ['id', 'ToDoContainer'],
+  data: fw.GetItems('Todo'),
+  childStyle: 'todoList'
+});
+
 
 // home item to be swtiched
 fw.Render({
@@ -72,3 +90,16 @@ fw.Route({
   contentParent: 'Content',
   contentToAdd: 'hello1',
 });
+
+
+function addTodo() {
+  const userInput = fw.Point('toDo').value
+
+  fw.Render({
+    parent: 'ToDoContainer',
+    element: 'p', 
+    content: userInput,
+    attri: ['id', 'ToDo']
+  })
+  fw.StoreItem("Todo", userInput)
+}
