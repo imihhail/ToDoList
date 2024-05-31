@@ -21,7 +21,7 @@ fw.Render({
   styleClass: 'buttom',
   content: 'Click me!',
   attri: ['id', '2'],
-  event: ['click', addTodo],
+  onClick: () => fw.StoreItem(fw.Point('toDo').value),
 });
 
 // Menu container inside Main Container
@@ -46,10 +46,16 @@ fw.Render({
   element: 'div',
   styleClass: 'ToDoContainer',
   attri: ['id', 'ToDoContainer'],
-  data: fw.GetItems('Todo'),
-  childStyle: 'todoList'
+  content: fw.GetItems('Todo').forEach(([key, value]) => {
+    fw.Render({
+      parent: 'ToDoContainer',
+      element: 'p',
+      styleClass: 'TodoStyle',
+      attri: ['id', key],
+      content: value,
+    });
+  }),
 });
-
 
 // home item to be swtiched
 fw.Render({
@@ -67,39 +73,26 @@ fw.Render({
   attri: ['id', 'hello1'],
 });
 
-// route button that switches all Content data to home1
-fw.Route({
-  parent: 'Menu',
-  element: 'button',
-  styleClass: 'buttom',
-  content: 'Home',
-  attri: ['id', 'home'],
-  where: '/home',
-  contentParent: 'Content',
-  contentToAdd: 'home1',
-});
+// // route button that switches all Content data to home1
+// fw.Route({
+//   parent: 'Menu',
+//   element: 'button',
+//   styleClass: 'buttom',
+//   content: 'Home',
+//   attri: ['id', 'home'],
+//   where: '/home',
+//   contentParent: 'Content',
+//   contentToAdd: 'home1',
+// });
 
-// route button that switches all Content data to hello1
-fw.Route({
-  parent: 'Menu',
-  element: 'button',
-  styleClass: 'buttom',
-  content: 'Hello',
-  attri: ['id', 'hello'],
-  where: '/hellohello',
-  contentParent: 'Content',
-  contentToAdd: 'hello1',
-});
-
-
-function addTodo() {
-  const userInput = fw.Point('toDo').value
-
-  fw.Render({
-    parent: 'ToDoContainer',
-    element: 'p', 
-    content: userInput,
-    attri: ['id', 'ToDo']
-  })
-  fw.StoreItem("Todo", userInput)
-}
+// // route button that switches all Content data to hello1
+// fw.Route({
+//   parent: 'Menu',
+//   element: 'button',
+//   styleClass: 'buttom',
+//   content: 'Hello',
+//   attri: ['id', 'hello'],
+//   where: '/hellohello',
+//   contentParent: 'Content',
+//   contentToAdd: 'hello1',
+// });
