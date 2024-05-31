@@ -21,7 +21,20 @@ fw.Render({
   styleClass: 'buttom',
   content: 'Click me!',
   attri: ['id', '2'],
-  onClick: () => fw.StoreItem(fw.Point('toDo').value),
+  onClick: () => {
+    fw.StoreItem(fw.Point('toDo').value);
+    fw.Point('toDo').value = '';
+    fw.Point('ToDoContainer').innerHTML = '';
+    fw.GetItems('Todo').forEach(([key, value]) => {
+      fw.Render({
+        parent: 'ToDoContainer',
+        element: 'div',
+        styleClass: 'TodoStyle',
+        attri: ['id', key],
+        content: value,
+      });
+    });
+  },
 });
 
 // Menu container inside Main Container
@@ -49,26 +62,23 @@ fw.Render({
 });
 
 // iterate items to parent
-fw.Populate({
-  parent: 'ToDoContainer',
-  content: fw.GetItems('Todo').forEach(([key, value]) => {
-    fw.Render({
-      parent: 'ToDoContainer',
-      element: 'p',
-      styleClass: 'TodoStyle',
-      attri: ['id', key],
-      content: value,
-    });
-  }),
-}),
-
-  // home item to be swtiched
+fw.GetItems('Todo').forEach(([key, value]) => {
   fw.Render({
+    parent: 'ToDoContainer',
     element: 'p',
-    styleClass: 'asd',
-    content: 'Home content!',
-    attri: ['id', 'home1'],
+    styleClass: 'TodoStyle',
+    attri: ['id', key],
+    content: value,
   });
+});
+
+// home item to be swtiched
+fw.Render({
+  element: 'p',
+  styleClass: 'asd',
+  content: 'Home content!',
+  attri: ['id', 'home1'],
+});
 
 // hello item to be switched
 fw.Render({
