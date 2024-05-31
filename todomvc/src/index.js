@@ -28,7 +28,14 @@ fw.Render({
     fw.GetItems('Todo').forEach(([key, value]) => {
       fw.Render({
         parent: 'ToDoContainer',
-        element: 'div',
+        element: 'input',
+        styleClass: 'checkbox',
+        attri: ['type', 'checkbox'],
+      });
+
+      fw.Render({
+        parent: 'ToDoContainer',
+        element: 'p',
         styleClass: 'TodoStyle',
         attri: ['id', key],
         content: value,
@@ -65,12 +72,36 @@ fw.Render({
 fw.GetItems('Todo').forEach(([key, value]) => {
   fw.Render({
     parent: 'ToDoContainer',
+    element: 'div',
+    styleClass: 'list',
+    attributes: {id: value},
+  });
+
+  fw.Render({
+    parent: value,
+    element: 'input',
+    styleClass: 'checkbox',
+    attributes: {type: 'checkbox', id: key},
+  });
+
+  fw.Render({
+    parent: value,
     element: 'p',
     styleClass: 'TodoStyle',
-    attri: ['id', key],
+    attributes: {id: key},
     content: value,
   });
+
+  fw.Render({
+    parent: value,
+    element: 'button',
+    styleClass: 'deletebutton',
+    attributes: {id: key},
+    content: 'Delete'
+  });
 });
+
+
 
 
 

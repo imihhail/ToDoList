@@ -44,6 +44,7 @@ export default class MiniFramework {
 
   Render(data) {
     let element = this.NewElement(data.element, data.styleClass, data.content);
+    console.log(data);
 
     if (data.onClick != null) {
       element.addEventListener('click', data.onClick);
@@ -54,6 +55,14 @@ export default class MiniFramework {
     if (data.parent != null) {
       this.Point(data.parent).appendChild(element);
     }
+    if (data.attributes != null) {
+      let attributes = Object.entries(data.attributes)
+      attributes.forEach(attr => element.setAttribute(attr[0], attr[1]))
+    }
+    if (data.attri != null) {
+      element.setAttribute(data.attri[0], data.attri[1]);
+    }
+    console.log("element: ", element);
   }
 
 }
