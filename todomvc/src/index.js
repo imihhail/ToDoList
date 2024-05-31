@@ -72,19 +72,5 @@ fw.GetItems('Todo').forEach(([key, value]) => {
   });
 });
 
-// home item to be swtiched
-fw.Render({
-  element: 'p',
-  styleClass: 'asd',
-  content: 'Home content!',
-  attri: ['id', 'home1'],
-});
 
-// hello item to be switched
-fw.Render({
-  element: 'p',
-  styleClass: 'dsa',
-  content: 'Hello content',
-  attri: ['id', 'hello1'],
-});
 

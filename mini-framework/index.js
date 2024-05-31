@@ -56,7 +56,6 @@ export default class MiniFramework {
     }
   }
 
-  Populate(data) {}
 }
 
 function generateUUID() {
