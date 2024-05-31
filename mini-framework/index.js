@@ -1,6 +1,8 @@
+import { v4 as uuidv4 } from 'uuid';
+
 export default class MiniFramework {
-  constructor(dom) {
-    this.dom = dom;
+  constructor() {
+    this.dom = this.Point('root');
   }
 
   NewElement = (tag, elClass, elText) => {
@@ -18,18 +20,24 @@ export default class MiniFramework {
     return newElement;
   };
 
-
-
-  StoreItem(value) {
-    let key = 0
-
-    localStorage.length > 0 ? key = localStorage.length : key = 0
-
-    localStorage.setItem(key, value)
-    key++
-    console.log("Storege", localStorage);
+  GetItems(key) {
+    let listObject = JSON.parse(localStorage.getItem(key))
+    return listObject;
   }
- 
+  
+  StoreItem(key, value) {
+    const uuid = generateUUID();
+
+    let existingValue = localStorage.getItem(key);
+    if (existingValue) {
+        existingValue = JSON.parse(existingValue);
+    } else {
+        existingValue = [];
+    }
+    existingValue.push({uniqueKey: uuid, value: value});
+    localStorage.setItem(key, JSON.stringify(existingValue));
+  }
+
   Point(item) {
     let target = document.querySelector(`#${item}`);
     return target;
@@ -44,6 +52,28 @@ export default class MiniFramework {
     if (data.attri != null) {
       element.setAttribute(data.attri[0], data.attri[1]);
     }
-    this.Point(data.parent).appendChild(element);
+    if (data.parent != null) {
+      this.Point(data.parent).appendChild(element);
+    }
+    if (data.data != null) {
+      let newElement 
+      for (const [key, value] of Object.entries(data.data)) {
+        if(data.childStyle != null){
+          newElement = this.NewElement('p', data.childStyle, value.value)
+        } else {
+          newElement = this.NewElement('p', 'todoClass', value.value)
+        }
+       newElement.setAttribute('id', value.uniqueKey);
+       element.appendChild(newElement)
+      }
+    }
   }
+}
+
+function generateUUID() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      const r = Math.random() * 16 | 0,
+            v = c === 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+  });
 }

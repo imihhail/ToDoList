@@ -1,12 +1,6 @@
 import MiniFramework from '../../mini-framework/index';
 
-console.log('New connection!');
-
-const root = document.querySelector('#root');
-const fw = new MiniFramework(root);
-// fw.Render('root', fw.NewElement('div', 'Container', 'Some Text'));
-// fw.Render('Container', fw.NewElement('div', 'Menu', 'Random stuff'));
-// fw.Render('Container', fw.NewElement('p', 'Content', 'Text for paragraph'));
+export const fw = new MiniFramework();
 
 fw.Render({
   parent: 'root',
@@ -27,18 +21,85 @@ fw.Render({
   styleClass: 'buttom',
   content: 'Click me!',
   attri: ['id', '2'],
-  event: ['click', test],
+  event: ['click', addTodo],
 });
 
-function test() {
+// Menu container inside Main Container
+fw.Render({
+  parent: 'Container',
+  element: 'div',
+  styleClass: 'menuContainer',
+  attri: ['id', 'Menu'],
+});
+
+// content container inside Main Container
+fw.Render({
+  parent: 'Container',
+  element: 'div',
+  styleClass: 'contentContainer',
+  attri: ['id', 'Content'],
+});
+
+// Todo list container
+fw.Render({
+  parent: 'Content',
+  element: 'div',
+  styleClass: 'ToDoContainer',
+  attri: ['id', 'ToDoContainer'],
+  data: fw.GetItems('Todo'),
+  childStyle: 'todoList'
+});
+
+
+// home item to be swtiched
+fw.Render({
+  element: 'p',
+  styleClass: 'asd',
+  content: 'Home content!',
+  attri: ['id', 'home1'],
+});
+
+// hello item to be switched
+fw.Render({
+  element: 'p',
+  styleClass: 'dsa',
+  content: 'Hello content',
+  attri: ['id', 'hello1'],
+});
+
+// route button that switches all Content data to home1
+fw.Route({
+  parent: 'Menu',
+  element: 'button',
+  styleClass: 'buttom',
+  content: 'Home',
+  attri: ['id', 'home'],
+  where: '/home',
+  contentParent: 'Content',
+  contentToAdd: 'home1',
+});
+
+// route button that switches all Content data to hello1
+fw.Route({
+  parent: 'Menu',
+  element: 'button',
+  styleClass: 'buttom',
+  content: 'Hello',
+  attri: ['id', 'hello'],
+  where: '/hellohello',
+  contentParent: 'Content',
+  contentToAdd: 'hello1',
+});
+
+
+function addTodo() {
   const userInput = fw.Point('toDo').value
-  
-  fw.StoreItem(userInput)
-  console.log("Input Value: ", userInput);
+
+  fw.Render({
+    parent: 'ToDoContainer',
+    element: 'p', 
+    content: userInput,
+    attri: ['id', 'ToDo']
+  })
+  fw.StoreItem("Todo", userInput)
 }
-
-
-// localStorage.setItem(key, value): Store a key-value pair.
-// localStorage.getItem(key): Retrieve the value associated with a key.
-// localStorage.removeItem(key): Remove a key-value pair.
-// localStorage.clear(): Clear all data stored in Local Storage.
