@@ -55,6 +55,14 @@ export default class MiniFramework {
       this.Point(data.parent).appendChild(element);
     }
   }
+
+  Populate(data) {
+    if (data.parent != null) {
+      if (data.content != null) {
+        this.Point(data.parent).appendChild(data.content);
+      }
+    }
+  }
 }
 
 function generateUUID() {

@@ -46,6 +46,11 @@ fw.Render({
   element: 'div',
   styleClass: 'ToDoContainer',
   attri: ['id', 'ToDoContainer'],
+});
+
+// iterate items to parent
+fw.Populate({
+  parent: 'ToDoContainer',
   content: fw.GetItems('Todo').forEach(([key, value]) => {
     fw.Render({
       parent: 'ToDoContainer',
@@ -55,15 +60,15 @@ fw.Render({
       content: value,
     });
   }),
-});
+}),
 
-// home item to be swtiched
-fw.Render({
-  element: 'p',
-  styleClass: 'asd',
-  content: 'Home content!',
-  attri: ['id', 'home1'],
-});
+  // home item to be swtiched
+  fw.Render({
+    element: 'p',
+    styleClass: 'asd',
+    content: 'Home content!',
+    attri: ['id', 'home1'],
+  });
 
 // hello item to be switched
 fw.Render({
