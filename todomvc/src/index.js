@@ -1,4 +1,6 @@
 import { Render, StoreItem, Point, GetItems, DeleteItem, ToggleItemBoolean, StorageBooleanCount } from '../../mini-framework/index';
+
+import { CreateMenu } from './menu.js';
 import './menu.js';
 import './helper.js';
 
@@ -39,6 +41,9 @@ Render({
   styleClass: 'menuContainer',
   attri: ['id', 'Menu'],
 });
+
+// Menu buttons
+CreateMenu();
 
 // content container inside Main Container
 Render({

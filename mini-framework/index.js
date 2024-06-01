@@ -96,7 +96,37 @@ export const Render = (data) => {
   return element;
 };
 
-export const Route = (data) => {};
+export const Route = (data) => {
+  let element = NewElement(data.element, data.styleClass, data.content);
+
+  if (data.onClick != null) {
+    element.addEventListener('click', data.onClick);
+  }
+  if (data.attri != null) {
+    element.setAttribute(data.attri[0], data.attri[1]);
+  }
+
+  Point(data.parent).appendChild(element);
+  if (data.where != null) {
+
+    element.addEventListener('click', () => {
+      window.history.pushState({}, '', data.where);
+      
+      let parent = Point(data.contentParent);
+      parent.innerHTML = '';
+
+      let child = Render({
+        parent: data.contentParent,
+        element: data.contentToAdd.element,
+        styleClass: data.contentToAdd.styleClass,
+        content: data.contentToAdd.content,
+        attri: ['id', data.contentToAdd.attri[1]],
+      });
+
+      parent.appendChild(child);
+    });
+  }
+}
 
 function generateUUID() {
   return 'axxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
