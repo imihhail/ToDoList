@@ -122,6 +122,7 @@ function renderTodo(key, value) {
     onClick: (e) => {
       DeleteItem('Todo', e.target.id)
       Point(key+'list').innerHTML = '';
+      Point('listCount').innerHTML = `${StorageBooleanCount('Todo')} items left!`;
     }
   });
 }
