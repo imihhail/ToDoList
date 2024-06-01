@@ -1,4 +1,5 @@
-import { Render, StoreItem, Point, GetItems, DeleteItem } from '../../mini-framework/index';
+import { Render, StoreItem, Point, GetItems, DeleteItem, ToggleItemBoolean, StorageBooleanCount } from '../../mini-framework/index';
+
 import { CreateMenu } from './menu.js';
 import './menu.js';
 import './helper.js';
@@ -28,9 +29,8 @@ Render({
     StoreItem('Todo', Point('Todo').value);
     Point('Todo').value = '';
     Point('ToDoContainer').innerHTML = '';
-    GetItems('Todo').forEach(([key, value]) => {
-      renderTodo(key, value)
-    });
+    GetItems('Todo').forEach(([key, value]) => renderTodo(key, value))
+    Point('listCount').innerHTML = `${StorageBooleanCount('Todo')} items left!`;
   },
 });
 
@@ -61,6 +61,21 @@ Render({
   attri: ['id', 'ToDoContainer'],
 });
 
+Render({
+  parent: 'Content',
+  element: 'div',
+  styleClass: 'contentFilters',
+  attri: ['id', 'contentFilters'],
+});
+
+Render({
+  parent: 'contentFilters',
+  element: 'p',
+  styleClass: 'listCount',
+  attri: ['id', 'listCount'],
+  content: GetItems('Todo') ? `${StorageBooleanCount('Todo')} items left!` : ''
+});
+
 // iterate items to parent
 GetItems('Todo').forEach(([key, value]) => {
   renderTodo(key, value)
@@ -78,15 +93,24 @@ function renderTodo(key, value) {
     parent: key+'list',
     element: 'input',
     styleClass: 'checkbox',
-    attributes: { type: 'checkbox', id: key },
+    attributes: { type: 'checkbox', id: key},
+    onClick: (e) => {
+      ToggleItemBoolean('Todo', e.target.id, e.target.checked)
+      Point('listCount').innerHTML = `${StorageBooleanCount('Todo')} items left!`;
+    }
   });
+
+  const yourCheckbox = document.getElementById(`${key}`);
+  if (value[1] == true) {
+      yourCheckbox.checked = true;
+  }
 
   Render({
     parent: key+'list',
     element: 'p',
     styleClass: 'TodoStyle',
     attributes: { id: key },
-    content: value,
+    content: value[0],
   });
 
   Render({
@@ -98,6 +122,7 @@ function renderTodo(key, value) {
     onClick: (e) => {
       DeleteItem('Todo', e.target.id)
       Point(key+'list').innerHTML = '';
+      Point('listCount').innerHTML = `${StorageBooleanCount('Todo')} items left!`;
     }
   });
 }
