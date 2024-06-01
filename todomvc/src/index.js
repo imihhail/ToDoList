@@ -1,39 +1,39 @@
-import MiniFramework from '../../mini-framework/index';
+import { Render, StoreItem, Point, GetItems } from '../../mini-framework/index';
+import './menu.js';
+import './helper.js';
 
-export const fw = new MiniFramework();
-
-fw.Render({
+Render({
   parent: 'root',
   element: 'div',
   styleClass: 'Container',
   attri: ['id', 'Container'],
 });
 
-fw.Render({
+Render({
   parent: 'Container',
   element: 'input',
   attri: ['id', 'toDo'],
 });
 
-fw.Render({
+Render({
   parent: 'Container',
   element: 'button',
   styleClass: 'buttom',
   content: 'Click me!',
   attri: ['id', '2'],
   onClick: () => {
-    fw.StoreItem(fw.Point('toDo').value);
-    fw.Point('toDo').value = '';
-    fw.Point('ToDoContainer').innerHTML = '';
-    fw.GetItems('Todo').forEach(([key, value]) => {
-      fw.Render({
+    StoreItem(fw.Point('toDo').value);
+    Point('toDo').value = '';
+    Point('ToDoContainer').innerHTML = '';
+    GetItems('Todo').forEach(([key, value]) => {
+      Render({
         parent: 'ToDoContainer',
         element: 'input',
         styleClass: 'checkbox',
         attri: ['type', 'checkbox'],
       });
 
-      fw.Render({
+      Render({
         parent: 'ToDoContainer',
         element: 'p',
         styleClass: 'TodoStyle',
@@ -45,7 +45,7 @@ fw.Render({
 });
 
 // Menu container inside Main Container
-fw.Render({
+Render({
   parent: 'Container',
   element: 'div',
   styleClass: 'menuContainer',
@@ -53,7 +53,7 @@ fw.Render({
 });
 
 // content container inside Main Container
-fw.Render({
+Render({
   parent: 'Container',
   element: 'div',
   styleClass: 'contentContainer',
@@ -61,7 +61,7 @@ fw.Render({
 });
 
 // Todo list container
-fw.Render({
+Render({
   parent: 'Content',
   element: 'div',
   styleClass: 'ToDoContainer',
@@ -69,39 +69,34 @@ fw.Render({
 });
 
 // iterate items to parent
-fw.GetItems('Todo').forEach(([key, value]) => {
-  fw.Render({
+GetItems('Todo').forEach(([key, value]) => {
+  Render({
     parent: 'ToDoContainer',
     element: 'div',
     styleClass: 'list',
-    attributes: {id: key},
+    attributes: { id: value },
   });
 
-  fw.Render({
+  Render({
     parent: value,
     element: 'input',
     styleClass: 'checkbox',
-    attributes: {type: 'checkbox', id: key},
+    attributes: { type: 'checkbox', id: key },
   });
 
-  fw.Render({
+  Render({
     parent: value,
     element: 'p',
     styleClass: 'TodoStyle',
-    attributes: {id: key},
+    attributes: { id: key },
     content: value,
   });
 
-  fw.Render({
+  Render({
     parent: value,
     element: 'button',
     styleClass: 'deletebutton',
-    attributes: {id: key},
-    content: 'Delete'
+    attributes: { id: key },
+    content: 'Delete',
   });
 });
-
-
-
-
-

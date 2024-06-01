@@ -1,9 +1,7 @@
-import fw from "index.js"
-
-
+import { Render, Route } from '../../mini-framework/index';
 
 // route button that switches all Content data to home1
-fw.Route({
+Route({
   parent: 'Menu',
   element: 'button',
   styleClass: 'buttom',
@@ -11,11 +9,11 @@ fw.Route({
   attri: ['id', 'home'],
   where: '/home',
   contentParent: 'Content',
-  contentToAdd: 'home1',
+  contentToAdd: homePoint,
 });
 
 // route button that switches all Content data to hello1
-fw.Route({
+Route({
   parent: 'Menu',
   element: 'button',
   styleClass: 'buttom',
@@ -23,11 +21,11 @@ fw.Route({
   attri: ['id', 'hello'],
   where: '/hello',
   contentParent: 'Content',
-  contentToAdd: 'hello1',
+  contentToAdd: helloPoint,
 });
 
 // home item to be swtiched
-fw.Render({
+const homePoint = Render({
   element: 'p',
   styleClass: 'asd',
   content: 'Home content!',
@@ -35,7 +33,7 @@ fw.Render({
 });
 
 // hello item to be switched
-fw.Render({
+const helloPoint = Render({
   element: 'p',
   styleClass: 'dsa',
   content: 'Hello content',
