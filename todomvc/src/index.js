@@ -1,6 +1,9 @@
-import { Render, StoreItem, Point, GetItems } from '../../mini-framework/index';
+import { Render, StoreItem, Point, GetItems, DeleteItem } from '../../mini-framework/index';
 import { CreateMenu } from './menu.js';
+import './menu.js';
 import './helper.js';
+
+import "./index.css"
 
 Render({
   parent: 'root',
@@ -12,7 +15,7 @@ Render({
 Render({
   parent: 'Container',
   element: 'input',
-  attri: ['id', 'toDo'],
+  attri: ['id', 'Todo'],
 });
 
 Render({
@@ -22,24 +25,11 @@ Render({
   content: 'Click me!',
   attri: ['id', '2'],
   onClick: () => {
-    StoreItem(Point('toDo').value);
-    Point('toDo').value = '';
+    StoreItem('Todo', Point('Todo').value);
+    Point('Todo').value = '';
     Point('ToDoContainer').innerHTML = '';
     GetItems('Todo').forEach(([key, value]) => {
-      Render({
-        parent: 'ToDoContainer',
-        element: 'input',
-        styleClass: 'checkbox',
-        attri: ['type', 'checkbox'],
-      });
-
-      Render({
-        parent: 'ToDoContainer',
-        element: 'p',
-        styleClass: 'TodoStyle',
-        attri: ['id', key],
-        content: value,
-      });
+      renderTodo(key, value)
     });
   },
 });
@@ -73,22 +63,26 @@ Render({
 
 // iterate items to parent
 GetItems('Todo').forEach(([key, value]) => {
+  renderTodo(key, value)
+});
+
+function renderTodo(key, value) {
   Render({
     parent: 'ToDoContainer',
     element: 'div',
     styleClass: 'list',
-    attributes: { id: value },
+    attributes: { id: key+'list' },
   });
 
   Render({
-    parent: value,
+    parent: key+'list',
     element: 'input',
     styleClass: 'checkbox',
     attributes: { type: 'checkbox', id: key },
   });
 
   Render({
-    parent: value,
+    parent: key+'list',
     element: 'p',
     styleClass: 'TodoStyle',
     attributes: { id: key },
@@ -96,10 +90,18 @@ GetItems('Todo').forEach(([key, value]) => {
   });
 
   Render({
-    parent: value,
+    parent: key+'list',
     element: 'button',
     styleClass: 'deletebutton',
     attributes: { id: key },
     content: 'Delete',
+    onClick: (e) => {
+      DeleteItem('Todo', e.target.id)
+      Point(key+'list').innerHTML = '';
+    }
   });
-});
+}
+
+
+
+
