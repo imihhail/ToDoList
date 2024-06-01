@@ -74,7 +74,7 @@ fw.GetItems('Todo').forEach(([key, value]) => {
     parent: 'ToDoContainer',
     element: 'div',
     styleClass: 'list',
-    attributes: {id: value},
+    attributes: {id: key},
   });
 
   fw.Render({
