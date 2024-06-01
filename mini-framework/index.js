@@ -14,21 +14,29 @@ export const NewElement = (tag, elClass, elText) => {
   return newElement;
 };
 
-export const GetItems = () => {
-  let listObject = JSON.parse(localStorage.getItem('Todo'));
+export const GetItems = (key) => {
+  let listObject = JSON.parse(localStorage.getItem(key));
   return Object.entries(listObject);
 };
 
-export const StoreItem = (value) => {
+export const DeleteItem = (key, valueId) => {
+  let existingValue = Object.entries(JSON.parse(localStorage.getItem(key)));
+  let filteredValues = existingValue.filter((value)=> value[0] != valueId)
+
+  let filteredObject = Object.fromEntries(filteredValues);
+  
+  localStorage.setItem(key, JSON.stringify(filteredObject))
+};
+
+export const StoreItem = (key, value) => {
   const uuid = generateUUID();
-  let existingValue = localStorage.getItem('Todo');
-  if (existingValue == null) {
-    existingValue = {};
-  } else {
-    existingValue = JSON.parse(existingValue);
-  }
+
+  let existingValue = localStorage.getItem(key);
+
+  existingValue == null ? existingValue = {} : existingValue = JSON.parse(existingValue);
   existingValue[uuid] = value;
-  localStorage.setItem('Todo', JSON.stringify(existingValue));
+
+  localStorage.setItem(key, JSON.stringify(existingValue));
 };
 
 export const Point = (item) => {
@@ -61,7 +69,7 @@ export const Render = (data) => {
 export const Route = (data) => {};
 
 function generateUUID() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+  return 'axxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
     const r = (Math.random() * 16) | 0,
       v = c === 'x' ? r : (r & 0x3) | 0x8;
     return v.toString(16);
