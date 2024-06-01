@@ -1,71 +1,64 @@
-import { v4 as uuidv4 } from 'uuid';
 
-export default class MiniFramework {
-  constructor() {
-    this.dom = this.Point('root');
+export const NewElement = (tag, elClass, elText) => {
+  const newElement = document.createElement(tag);
+  if (elClass != null) {
+    newElement.classList = elClass;
   }
-
-  NewElement = (tag, elClass, elText) => {
-    const newElement = document.createElement(tag);
-    if (elClass != null) {
-      newElement.classList = elClass;
-    }
-    if (elText != null) {
-      if (tag == 'button') {
-        newElement.textContent = elText;
-      } else {
-        newElement.innerHTML = elText;
-      }
-    }
-    return newElement;
-  };
-
-  GetItems() {
-    let listObject = JSON.parse(localStorage.getItem('Todo'));
-    return Object.entries(listObject);
-  }
-
-  StoreItem(value) {
-    const uuid = generateUUID();
-    let existingValue = localStorage.getItem('Todo');
-    if (existingValue == null) {
-      existingValue = {};
+  if (elText != null) {
+    if (tag == 'button') {
+      newElement.textContent = elText;
     } else {
-      existingValue = JSON.parse(existingValue);
+      newElement.innerHTML = elText;
     }
-    existingValue[uuid] = value;
-    localStorage.setItem('Todo', JSON.stringify(existingValue));
   }
+  return newElement;
+};
 
-  Point(item) {
-    let target = document.querySelector(`#${item}`);
-    return target;
+export const GetItems = () => {
+  let listObject = JSON.parse(localStorage.getItem('Todo'));
+  return Object.entries(listObject);
+};
+
+export const StoreItem = (value) => {
+  const uuid = generateUUID();
+  let existingValue = localStorage.getItem('Todo');
+  if (existingValue == null) {
+    existingValue = {};
+  } else {
+    existingValue = JSON.parse(existingValue);
   }
+  existingValue[uuid] = value;
+  localStorage.setItem('Todo', JSON.stringify(existingValue));
+};
 
-  Render(data) {
-    let element = this.NewElement(data.element, data.styleClass, data.content);
-    console.log(data);
+export const Point = (item) => {
+  let target = document.querySelector(`#${item}`);
+  return target;
+};
 
-    if (data.onClick != null) {
-      element.addEventListener('click', data.onClick);
-    }
-    if (data.attri != null) {
-      element.setAttribute(data.attri[0], data.attri[1]);
-    }
-    if (data.parent != null) {
-      this.Point(data.parent).appendChild(element);
-    }
-    if (data.attributes != null) {
-      let attributes = Object.entries(data.attributes)
-      attributes.forEach(attr => element.setAttribute(attr[0], attr[1]))
-    }
-    if (data.attri != null) {
-      element.setAttribute(data.attri[0], data.attri[1]);
-    }
-    console.log("element: ", element);
+export const Render = (data) => {
+  let element = NewElement(data.element, data.styleClass, data.content);
+
+  if (data.onClick != null) {
+    element.addEventListener('click', data.onClick);
   }
+  if (data.attri != null) {
+    element.setAttribute(data.attri[0], data.attri[1]);
+  }
+  if (data.parent != null) {
+    Point(data.parent).appendChild(element);
+  }
+  if (data.attributes != null) {
+    let attributes = Object.entries(data.attributes);
+    attributes.forEach((attr) => element.setAttribute(attr[0], attr[1]));
+  }
+  if (data.attri != null) {
+    element.setAttribute(data.attri[0], data.attri[1]);
+  }
+  return element;
+};
 
-}
+export const Route = (data) => {};
 
 function generateUUID() {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
