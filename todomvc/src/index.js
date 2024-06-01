@@ -1,10 +1,18 @@
-import { Render, StoreItem, Point, GetItems, DeleteItem, ToggleItemBoolean, StorageBooleanCount } from '../../mini-framework/index';
+import {
+  Render,
+  StoreItem,
+  Point,
+  GetItems,
+  DeleteItem,
+  ToggleItemBoolean,
+  StorageBooleanCount,
+} from '../../mini-framework/index';
 
 import { CreateMenu } from './menu.js';
 import './menu.js';
 import './helper.js';
 
-import "./index.css"
+import './index.css';
 
 Render({
   parent: 'root',
@@ -15,22 +23,30 @@ Render({
 
 Render({
   parent: 'Container',
-  element: 'input',
-  attri: ['id', 'Todo'],
+  element: 'h1',
+  content: 'todos',
 });
 
 Render({
   parent: 'Container',
-  element: 'button',
-  styleClass: 'buttom',
-  content: 'Click me!',
-  attri: ['id', '2'],
-  onClick: () => {
-    StoreItem('Todo', Point('Todo').value);
-    Point('Todo').value = '';
+  element: 'div',
+  styleClass: 'input-container',
+  attri: ['id', 'input-container'],
+});
+
+Render({
+  parent: 'input-container',
+  element: 'input',
+  styleClass: 'new-todo',
+  attributes: { id: 'new-todo', placeholder: 'What needs to be done?' },
+  onKeyDown: () => {
+    StoreItem('Todo', Point('new-todo').value);
+    Point('new-todo').value = '';
     Point('ToDoContainer').innerHTML = '';
-    GetItems('Todo').forEach(([key, value]) => renderTodo(key, value))
-    Point('listCount').innerHTML = `${StorageBooleanCount('Todo')} items left!`;
+    GetItems('Todo').forEach(([key, value]) => renderTodo(key, value));
+    Point('listCount').innerHTML = `${StorageBooleanCount(
+      'Todo'
+    )} items left!`;
   },
 });
 
@@ -43,7 +59,7 @@ Render({
 });
 
 // Menu buttons
-CreateMenu();
+// CreateMenu();
 
 // content container inside Main Container
 Render({
@@ -73,12 +89,12 @@ Render({
   element: 'p',
   styleClass: 'listCount',
   attri: ['id', 'listCount'],
-  content: GetItems('Todo') ? `${StorageBooleanCount('Todo')} items left!` : ''
+  content: GetItems('Todo') ? `${StorageBooleanCount('Todo')} items left!` : '',
 });
 
 // iterate items to parent
 GetItems('Todo').forEach(([key, value]) => {
-  renderTodo(key, value)
+  renderTodo(key, value);
 });
 
 function renderTodo(key, value) {
@@ -86,27 +102,29 @@ function renderTodo(key, value) {
     parent: 'ToDoContainer',
     element: 'div',
     styleClass: 'list',
-    attributes: { id: key+'list' },
+    attributes: { id: key + 'list' },
   });
 
   Render({
-    parent: key+'list',
+    parent: key + 'list',
     element: 'input',
     styleClass: 'checkbox',
-    attributes: { type: 'checkbox', id: key},
+    attributes: { type: 'checkbox', id: key },
     onClick: (e) => {
-      ToggleItemBoolean('Todo', e.target.id, e.target.checked)
-      Point('listCount').innerHTML = `${StorageBooleanCount('Todo')} items left!`;
-    }
+      ToggleItemBoolean('Todo', e.target.id, e.target.checked);
+      Point('listCount').innerHTML = `${StorageBooleanCount(
+        'Todo'
+      )} items left!`;
+    },
   });
 
   const yourCheckbox = document.getElementById(`${key}`);
   if (value[1] == true) {
-      yourCheckbox.checked = true;
+    yourCheckbox.checked = true;
   }
 
   Render({
-    parent: key+'list',
+    parent: key + 'list',
     element: 'p',
     styleClass: 'TodoStyle',
     attributes: { id: key },
@@ -114,19 +132,17 @@ function renderTodo(key, value) {
   });
 
   Render({
-    parent: key+'list',
+    parent: key + 'list',
     element: 'button',
     styleClass: 'deletebutton',
     attributes: { id: key },
-    content: 'Delete',
+    content: 'X',
     onClick: (e) => {
-      DeleteItem('Todo', e.target.id)
-      Point(key+'list').innerHTML = '';
-      Point('listCount').innerHTML = `${StorageBooleanCount('Todo')} items left!`;
-    }
+      DeleteItem('Todo', e.target.id);
+      Point(key + 'list').innerHTML = '';
+      Point('listCount').innerHTML = `${StorageBooleanCount(
+        'Todo'
+      )} items left!`;
+    },
   });
 }
-
-
-
-

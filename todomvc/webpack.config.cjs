@@ -20,6 +20,10 @@ module.exports = {
           },
         },
       },
+      {
+        test: /\.css$/, // Add this rule
+        use: ['style-loader', 'css-loader'], // Loaders to handle CSS files
+      },
     ],
   },
   plugins: [

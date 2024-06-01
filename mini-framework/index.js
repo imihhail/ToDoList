@@ -1,4 +1,3 @@
-
 export const NewElement = (tag, elClass, elText) => {
   const newElement = document.createElement(tag);
   if (elClass != null) {
@@ -17,18 +16,18 @@ export const NewElement = (tag, elClass, elText) => {
 export const GetItems = (key) => {
   let listObject = JSON.parse(localStorage.getItem(key));
   if (listObject == null) {
-    return null
+    return null;
   }
   return Object.entries(listObject);
 };
 
 export const DeleteItem = (key, valueId) => {
   let existingValue = Object.entries(JSON.parse(localStorage.getItem(key)));
-  let filteredValues = existingValue.filter((value)=> value[0] != valueId)
+  let filteredValues = existingValue.filter((value) => value[0] != valueId);
 
   let filteredObject = Object.fromEntries(filteredValues);
-  
-  localStorage.setItem(key, JSON.stringify(filteredObject))
+
+  localStorage.setItem(key, JSON.stringify(filteredObject));
 };
 
 export const StoreItem = (key, value) => {
@@ -36,8 +35,10 @@ export const StoreItem = (key, value) => {
 
   let existingValue = localStorage.getItem(key);
 
-  existingValue == null ? existingValue = {} : existingValue = JSON.parse(existingValue);
-  existingValue[uuid] = [value, "false"];
+  existingValue == null
+    ? (existingValue = {})
+    : (existingValue = JSON.parse(existingValue));
+  existingValue[uuid] = [value, 'false'];
 
   localStorage.setItem(key, JSON.stringify(existingValue));
 };
@@ -45,29 +46,31 @@ export const StoreItem = (key, value) => {
 export const ToggleItemBoolean = (key, value, bool) => {
   let existingValue = Object.entries(JSON.parse(localStorage.getItem(key)));
 
-  let toggledObject = existingValue.map((valuepair)=> {
+  let toggledObject = existingValue.map((valuepair) => {
     if (valuepair[0] == value) {
-      valuepair[1][1] = bool
-      return valuepair
-    } 
-    return valuepair
-  })
+      valuepair[1][1] = bool;
+      return valuepair;
+    }
+    return valuepair;
+  });
 
   let filteredObject = Object.fromEntries(toggledObject);
-  localStorage.setItem(key, JSON.stringify(filteredObject))
-}
+  localStorage.setItem(key, JSON.stringify(filteredObject));
+};
 
 export const StorageBooleanCount = (key) => {
-  let trueCount = 0
-  let falseCount = 0
+  let trueCount = 0;
+  let falseCount = 0;
 
   let existingValue = Object.entries(JSON.parse(localStorage.getItem(key)));
-  existingValue.forEach((valuepair)=> valuepair[1][1] == true ? trueCount++ : falseCount++)
+  existingValue.forEach((valuepair) =>
+    valuepair[1][1] == true ? trueCount++ : falseCount++
+  );
 
-  console.log("truecount: ", trueCount);
-  console.log("falsecount: ", falseCount);
-  return trueCount, falseCount
-}
+  console.log('truecount: ', trueCount);
+  console.log('falsecount: ', falseCount);
+  return trueCount, falseCount;
+};
 
 export const Point = (item) => {
   let target = document.querySelector(`#${item}`);
@@ -79,6 +82,13 @@ export const Render = (data) => {
 
   if (data.onClick != null) {
     element.addEventListener('click', data.onClick);
+  }
+  if (data.onKeyDown != null) {
+    element.addEventListener('keydown', (e) => {
+      if (e.key == 'Enter') {
+        data.onKeyDown();
+      }
+    });
   }
   if (data.attri != null) {
     element.setAttribute(data.attri[0], data.attri[1]);
@@ -108,10 +118,9 @@ export const Route = (data) => {
 
   Point(data.parent).appendChild(element);
   if (data.where != null) {
-
     element.addEventListener('click', () => {
       window.history.pushState({}, '', data.where);
-      
+
       let parent = Point(data.contentParent);
       parent.innerHTML = '';
 
@@ -126,7 +135,7 @@ export const Route = (data) => {
       parent.appendChild(child);
     });
   }
-}
+};
 
 function generateUUID() {
   return 'axxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {

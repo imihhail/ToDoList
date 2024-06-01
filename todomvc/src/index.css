@@ -1,0 +1,100 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font: 14px Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+
+.Container {
+  display: flex;
+  flex-direction: column;
+}
+
+.Container h1 {
+  color: #b83f45;
+  font-size: 80px;
+  font-weight: 200;
+  text-align: center;
+  width: 100%;
+  padding-top: 2rem;
+}
+
+.input-container .new-todo {
+  display: flex;
+  width: 35rem;
+  justify-content: center;
+  margin: auto;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 2px 15px;
+  outline: none;
+}
+
+.input-container .new-todo:focus {
+  border: 2px solid rgba(252, 83, 83, 0.5);
+  box-shadow: rgba(252, 83, 83, 0.5) 0px 1px 5px;
+}
+
+.new-todo {
+  background: rgba(0, 0, 0, 0.003);
+  border: none;
+  box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
+  height: 65px;
+  padding: 16px 16px 16px 60px;
+  font-family: inherit;
+  font-size: 24px;
+  font-weight: inherit;
+  line-height: 1.4em;
+}
+
+.ToDoContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.list {
+  margin: auto;
+  width: 35rem;
+  border: 1px solid rgba(31, 30, 30, 0.2);
+  display: flex;
+  justify-content: space-between;
+  padding: 1.3rem;
+}
+
+.list p {
+  margin-right: auto;
+  margin-left: 1rem;
+  font-size: 1.7rem;
+}
+
+.deletebutton {
+  background: none;
+  border: none;
+  visibility: hidden;
+  cursor: pointer;
+  font-size: 1.3rem;
+}
+.list:hover .deletebutton {
+  visibility: visible;
+}
+
+input[type='checkbox'] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  position: relative;
+  width: 30px;
+  height: 30px;
+  border: 2px solid #ccc;
+  border-radius: 50%; /* Make it round */
+  outline: none;
+  cursor: pointer;
+}
+
+.contentFilters {
+  margin: auto;
+  width: 35rem;
+  border: 1px solid rgba(31, 30, 30, 0.2);
+  padding: 0.7rem;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 8px 0 -3px #f6f6f6,
+    0 9px 1px -3px rgba(0, 0, 0, 0.2), 0 16px 0 -6px #f6f6f6,
+    0 17px 2px -6px rgba(0, 0, 0, 0.2);
+}
