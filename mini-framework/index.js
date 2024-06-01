@@ -16,6 +16,9 @@ export const NewElement = (tag, elClass, elText) => {
 
 export const GetItems = (key) => {
   let listObject = JSON.parse(localStorage.getItem(key));
+  if (listObject == null) {
+    return null
+  }
   return Object.entries(listObject);
 };
 
@@ -34,10 +37,37 @@ export const StoreItem = (key, value) => {
   let existingValue = localStorage.getItem(key);
 
   existingValue == null ? existingValue = {} : existingValue = JSON.parse(existingValue);
-  existingValue[uuid] = value;
+  existingValue[uuid] = [value, "false"];
 
   localStorage.setItem(key, JSON.stringify(existingValue));
 };
+
+export const ToggleItemBoolean = (key, value, bool) => {
+  let existingValue = Object.entries(JSON.parse(localStorage.getItem(key)));
+
+  let toggledObject = existingValue.map((valuepair)=> {
+    if (valuepair[0] == value) {
+      valuepair[1][1] = bool
+      return valuepair
+    } 
+    return valuepair
+  })
+
+  let filteredObject = Object.fromEntries(toggledObject);
+  localStorage.setItem(key, JSON.stringify(filteredObject))
+}
+
+export const StorageBooleanCount = (key) => {
+  let trueCount = 0
+  let falseCount = 0
+
+  let existingValue = Object.entries(JSON.parse(localStorage.getItem(key)));
+  existingValue.forEach((valuepair)=> valuepair[1][1] == true ? trueCount++ : falseCount++)
+
+  console.log("truecount: ", trueCount);
+  console.log("falsecount: ", falseCount);
+  return trueCount, falseCount
+}
 
 export const Point = (item) => {
   let target = document.querySelector(`#${item}`);
