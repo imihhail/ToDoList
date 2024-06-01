@@ -1,5 +1,5 @@
 import { Render, StoreItem, Point, GetItems } from '../../mini-framework/index';
-import './menu.js';
+import { CreateMenu } from './menu.js';
 import './helper.js';
 
 Render({
@@ -22,7 +22,7 @@ Render({
   content: 'Click me!',
   attri: ['id', '2'],
   onClick: () => {
-    StoreItem(fw.Point('toDo').value);
+    StoreItem(Point('toDo').value);
     Point('toDo').value = '';
     Point('ToDoContainer').innerHTML = '';
     GetItems('Todo').forEach(([key, value]) => {
@@ -51,6 +51,9 @@ Render({
   styleClass: 'menuContainer',
   attri: ['id', 'Menu'],
 });
+
+// Menu buttons
+CreateMenu();
 
 // content container inside Main Container
 Render({
