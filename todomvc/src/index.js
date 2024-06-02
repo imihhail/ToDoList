@@ -60,9 +60,6 @@ Render({
   attri: ['id', 'Menu'],
 });
 
-// Menu buttons
-// CreateMenu();
-
 // content container inside Main Container
 Render({
   parent: 'Container',
@@ -95,12 +92,38 @@ Render({
 });
 
 // iterate items to parent
-let items = GetItems('Todo');
-if(items !== null) {
-  items.forEach(([key, value]) => {
+GetItems('Todo').forEach(([key, value]) => {
+    renderTodo(key, value);
+});
+
+// Menu buttons
+CreateMenu();
+
+export const GetAllTodo = () => {
+  Point('ToDoContainer').innerHTML = '';
+  GetItems('Todo').forEach(([key, value]) => {
     renderTodo(key, value);
   });
-}
+};
+
+export const GetCompletedTodo = () => {
+  Point('ToDoContainer').innerHTML = '';
+  GetItems('Todo').forEach(([key, value]) => {
+      if(value[1] == 'true' || value[1] == true) {
+        renderTodo(key, value);
+      }
+  });
+};
+
+export const GetActiveTodo = () => {
+  Point('ToDoContainer').innerHTML = '';
+  GetItems('Todo').forEach(([key, value]) => {
+    console.log(value)
+    if(value[1] == 'false' || value[1] == false) {
+      renderTodo(key, value);
+    }
+  });
+};
 
 function renderTodo(key, value) {
   Render({
