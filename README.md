@@ -12,12 +12,14 @@ Mini-framework is a custom built framework that helps you create, nest elements,
 
 ## Table of Contents
 
+- [Examples](#examples)
 - [Audit](#audit)
 - [Contributing](#contributing)
 - [License](#license)
 - [Contact](#contact)
 
 ## How to run
+
 To run the To-Do MVC project created from the mini-framework
 
 ```bash
@@ -25,6 +27,8 @@ git clone repo
 cd todomvc
 npm run start
 ```
+
+## Examples
 
 ### StoreItem
 
