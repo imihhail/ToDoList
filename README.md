@@ -10,7 +10,6 @@ Mini-framework is a custom built framework that helps you create, nest elements,
 
 - **Frontend**: Custom JS Framework
 
-
 ## Table of Contents
 
 - [Audit](#audit)
@@ -18,13 +17,121 @@ Mini-framework is a custom built framework that helps you create, nest elements,
 - [License](#license)
 - [Contact](#contact)
 
-#### Examples
+## Examples
 
-    Code examples and explanations on how to:
-        Create an element
-        Create an event
-        Nest elements
-        Add attributes to an element
+### StoreItem
+
+function stores saved state data in localStorage
+
+Input: key(string), value(string)
+
+Example:
+
+```bash
+StoreItem("Todo", "data") // storage data with key "Todo" and value of "data"
+```
+
+### GetItems
+
+function retrieves saved state data from localStorage
+
+Input: key(string)
+
+Example:
+
+```bash
+GetItems("Todo")
+```
+
+### DeleteItem
+
+function deletes saved state data from localStorage
+
+Input: key(string), value(string)
+
+Example:
+
+```bash
+StoreItem("Todo")
+```
+
+### ToggleItemBoolean
+
+function deletes saved state data from localStorage
+
+Input: key(string), value(string)
+
+Example:
+
+```bash
+ToggleItemBoolean("Todo")
+```
+
+### StorageBooleanCount
+
+function deletes saved state data from localStorage
+
+Input: key(string), value(string)
+
+Example:
+
+```bash
+StorageBooleanCount("Todo")
+```
+
+### Point
+
+function returns a node that is selected by ID
+
+Input: key(string),
+
+Example:
+
+```bash
+Point("Todo") // point to a node with ID of "Todo"
+```
+
+### Render
+
+function creates and appends a new node to selected parent node
+
+Input: object
+
+Example:
+
+```bash
+Render({
+element: string, // node tag
+styleClass: string, // node class
+content: string, // node content
+onClick: funcion, // on click function to activate
+onKeyDown, function, // activate function on keyboard enter press
+attri: array[string, string] // apply attribute to node
+parent: string, parent node, // append node to this parent
+attributes: object, // append multiple attributes to node
+})
+```
+
+### Route
+
+function creates and appends a new node to selected parent node
+
+Input: object
+
+Example:
+
+```bash
+Render({
+element: "string",
+styleClass: "string",
+content: "string",
+onClick: funcion,
+onKeyDown, function,
+attri: array[string, string]
+parent: string, parent node,
+attributes: object,
+})
+```
 
 #### Prerequisites
 
