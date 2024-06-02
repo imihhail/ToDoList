@@ -54,7 +54,7 @@ GetItems("Todo")
 
 function deletes saved state data from localStorage
 
-Input: key(string), value(string)
+Input: key(string), value id(string)
 
 Example:
 
@@ -64,26 +64,26 @@ StoreItem("Todo")
 
 ### ToggleItemBoolean
 
-function deletes saved state data from localStorage
+function Toggles items boolean
 
-Input: key(string), value(string)
+Input: key(string), value(string), boolean
 
 Example:
 
 ```bash
-ToggleItemBoolean("Todo")
+ToggleItemBoolean("key", 'value', boolean) // changes current boolean value to opposite boolean value
 ```
 
 ### StorageBooleanCount
 
-function deletes saved state data from localStorage
+function retrieves true count and false count from storage
 
 Input: key(string), value(string)
 
 Example:
 
 ```bash
-StorageBooleanCount("Todo")
+StorageBooleanCount(key"Todo")
 ```
 
 ### Point
