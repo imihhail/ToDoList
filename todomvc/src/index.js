@@ -15,6 +15,10 @@ import './helper.js';
 
 import './index.css';
 
+if (window.location.pathname !== '/') {
+  window.location.pathname = '/';
+}
+
 Render({
   parent: 'root',
   element: 'div',
