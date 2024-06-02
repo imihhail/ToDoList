@@ -14,11 +14,12 @@ export const NewElement = (tag, elClass, elText) => {
 };
 
 export const GetItems = (key) => {
-  let listObject = JSON.parse(localStorage.getItem(key));
-  if (listObject == null) {
-    return null;
+  const data = localStorage.getItem(key)
+  if (data) {
+    let listObject = JSON.parse(data);
+    return Object.entries(listObject);
   }
-  return Object.entries(listObject);
+  return [];
 };
 
 export const DeleteItem = (key, valueId) => {
@@ -105,31 +106,21 @@ export const Render = (data) => {
     let attributes = Object.entries(data.attributes);
     attributes.forEach((attr) => element.setAttribute(attr[0], attr[1]));
   }
-  if (data.attri != null) {
-    element.setAttribute(data.attri[0], data.attri[1]);
-  }
   return element;
 };
 
 export const Route = (data) => {
   let element = NewElement(data.element, data.styleClass, data.content);
-
-  if (data.onClick != null) {
+  if (data.onClick) {
     element.addEventListener('click', data.onClick);
   }
   if (data.attri != null) {
     element.setAttribute(data.attri[0], data.attri[1]);
   }
-  console.log(data)
   Point(data.parent).appendChild(element);
   if (data.where != null) {
     element.addEventListener('click', () => {
       window.history.pushState({}, '', data.where);
-
-      let parent = Point(data.contentParent);
-      parent.innerHTML = '';
-      console.log(data.onClick)
-      parent.appendChild(data.onClick);
     });
   }
 };

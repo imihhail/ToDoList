@@ -107,6 +107,8 @@ input[type='checkbox']:checked::after {
 
 
 .contentFilters {
+  display: flex;
+  justify-content: space-between;
   margin: auto;
   width: 35rem;
   border: 1px solid rgba(31, 30, 30, 0.2);
