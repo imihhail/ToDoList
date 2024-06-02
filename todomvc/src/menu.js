@@ -2,7 +2,7 @@ import { Route } from '../../mini-framework/index';
 import { GetAllTodo, GetCompletedTodo, GetActiveTodo } from './index.js';
 
 export function CreateMenu() {
-  // route button that switches all Content data to home1
+  // route button that switches all Content data to All toDo list
   Route({
     parent: 'contentFilters',
     element: 'button',
@@ -13,7 +13,7 @@ export function CreateMenu() {
     onClick: () => GetAllTodo(),
   });
 
-  // route button that switches all Content data to original toDo list
+  // route button that switches all Content data to Active toDo list
   Route({
     parent: 'contentFilters',
     element: 'button',
@@ -24,7 +24,7 @@ export function CreateMenu() {
     onClick: () => GetActiveTodo(),
   });
 
-  // route button that switches all Content data to hello1
+  // route button that switches all Content data to Completed toDo list
   Route({
     parent: 'contentFilters',
     element: 'button',
