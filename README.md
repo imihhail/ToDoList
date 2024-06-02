@@ -117,7 +117,7 @@ attributes: object, // append multiple attributes to node
 Function creates and appends a new node to selected parent node. New node is clickable and redirects URL.
 
 Input: object
-original 
+
 Example:
 
 ```bash
