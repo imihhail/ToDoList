@@ -26,8 +26,13 @@ export const DeleteItem = (key, valueId) => {
   let filteredValues = existingValue.filter((value) => value[0] != valueId);
 
   let filteredObject = Object.fromEntries(filteredValues);
-
   localStorage.setItem(key, JSON.stringify(filteredObject));
+
+  let keyCheck = localStorage.getItem(key)
+
+  if (keyCheck == '{}') {
+    localStorage.removeItem(key)
+  }
 };
 
 export const StoreItem = (key, value) => {
@@ -61,14 +66,14 @@ export const ToggleItemBoolean = (key, value, bool) => {
 export const StorageBooleanCount = (key) => {
   let trueCount = 0;
   let falseCount = 0;
+  let item = localStorage.getItem(key)
 
-  let existingValue = Object.entries(JSON.parse(localStorage.getItem(key)));
-  existingValue.forEach((valuepair) =>
+  if (item != null) {
+    let existingValue = Object.entries(JSON.parse(item));
+    existingValue.forEach((valuepair) =>
     valuepair[1][1] == true ? trueCount++ : falseCount++
-  );
-
-  console.log('truecount: ', trueCount);
-  console.log('falsecount: ', falseCount);
+    );
+  }
   return trueCount, falseCount;
 };
 
