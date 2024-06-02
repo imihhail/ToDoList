@@ -14,7 +14,7 @@ export const NewElement = (tag, elClass, elText) => {
 };
 
 export const GetItems = (key) => {
-  const data = localStorage.getItem(key)
+  const data = localStorage.getItem(key);
   if (data) {
     let listObject = JSON.parse(data);
     return Object.entries(listObject);
@@ -29,10 +29,10 @@ export const DeleteItem = (key, valueId) => {
   let filteredObject = Object.fromEntries(filteredValues);
   localStorage.setItem(key, JSON.stringify(filteredObject));
 
-  let keyCheck = localStorage.getItem(key)
+  let keyCheck = localStorage.getItem(key);
 
   if (keyCheck == '{}') {
-    localStorage.removeItem(key)
+    localStorage.removeItem(key);
   }
 };
 
@@ -67,12 +67,12 @@ export const ToggleItemBoolean = (key, value, bool) => {
 export const StorageBooleanCount = (key) => {
   let trueCount = 0;
   let falseCount = 0;
-  let item = localStorage.getItem(key)
+  let item = localStorage.getItem(key);
 
   if (item != null) {
     let existingValue = Object.entries(JSON.parse(item));
     existingValue.forEach((valuepair) =>
-    valuepair[1][1] == true ? trueCount++ : falseCount++
+      valuepair[1][1] == true ? trueCount++ : falseCount++
     );
   }
   return trueCount, falseCount;

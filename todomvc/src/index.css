@@ -108,7 +108,7 @@ input[type='checkbox']:checked::after {
 
 .contentFilters {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
   margin: auto;
   width: 35rem;
   border: 1px solid rgba(31, 30, 30, 0.2);
@@ -120,4 +120,20 @@ input[type='checkbox']:checked::after {
 
 .hide {
   display: none;
+}
+
+.contentFilters .activityButton{
+  padding: 0.5rem;
+  background: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+.contentFilters .activityButton:hover{
+  border: 1px solid red;
+}
+.contentFilters .activityButton:nth-child(2){
+  margin-left: auto;
+}
+.contentFilters .activityButton:last-child{
+  margin-right: auto;
 }
