@@ -40,6 +40,8 @@ Render({
   styleClass: 'new-todo',
   attributes: { id: 'new-todo', placeholder: 'What needs to be done?' },
   onKeyDown: () => {
+    Point('contentFilters').className = 'contentFilters'
+    Point('contentFilters').style.display = 'block'
     StoreItem('Todo', Point('new-todo').value);
     Point('new-todo').value = '';
     Point('ToDoContainer').innerHTML = '';
@@ -80,7 +82,7 @@ Render({
 Render({
   parent: 'Content',
   element: 'div',
-  styleClass: 'contentFilters',
+  styleClass: GetItems('Todo').length ? 'contentFilters': '',
   attri: ['id', 'contentFilters'],
 });
 
@@ -89,7 +91,7 @@ Render({
   element: 'p',
   styleClass: 'listCount',
   attri: ['id', 'listCount'],
-  content: GetItems('Todo') ? `${StorageBooleanCount('Todo')} items left!` : '',
+  content: GetItems('Todo').length ? `${StorageBooleanCount('Todo')} items left!` : '',
 });
 
 // iterate items to parent
@@ -138,11 +140,14 @@ function renderTodo(key, value) {
     attributes: { id: key },
     content: 'X',
     onClick: (e) => {
-      DeleteItem('Todo', e.target.id);
-      Point(key + 'list').innerHTML = '';
+      DeleteItem('Todo', e.target.id);;
+      Point(key + 'list').remove()
       Point('listCount').innerHTML = `${StorageBooleanCount(
         'Todo'
       )} items left!`;
+      if (GetItems('Todo').length == 0) {
+        Point('contentFilters').style.display = 'none'
+      }
     },
   });
 }
