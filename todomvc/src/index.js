@@ -82,7 +82,7 @@ Render({
 Render({
   parent: 'Content',
   element: 'div',
-  styleClass: GetItems('Todo').length ? 'contentFilters': '',
+  styleClass: GetItems('Todo') ? 'contentFilters': '',
   attri: ['id', 'contentFilters'],
 });
 
@@ -91,13 +91,16 @@ Render({
   element: 'p',
   styleClass: 'listCount',
   attri: ['id', 'listCount'],
-  content: GetItems('Todo').length ? `${StorageBooleanCount('Todo')} items left!` : '',
+  content: GetItems('Todo') ? `${StorageBooleanCount('Todo')} items left!` : '',
 });
 
 // iterate items to parent
-GetItems('Todo').forEach(([key, value]) => {
-  renderTodo(key, value);
-});
+let items = GetItems('Todo');
+if(items !== null) {
+  items.forEach(([key, value]) => {
+    renderTodo(key, value);
+  });
+}
 
 function renderTodo(key, value) {
   Render({
@@ -145,7 +148,7 @@ function renderTodo(key, value) {
       Point('listCount').innerHTML = `${StorageBooleanCount(
         'Todo'
       )} items left!`;
-      if (GetItems('Todo').length == 0) {
+      if (GetItems('Todo') == null) {
         Point('contentFilters').style.display = 'none'
       }
     },
