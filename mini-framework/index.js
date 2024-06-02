@@ -111,7 +111,7 @@ export const Render = (data) => {
 
 export const Route = (data) => {
   let element = NewElement(data.element, data.styleClass, data.content);
-  if (data.onClick) {
+  if (data.onClick != null) {
     element.addEventListener('click', data.onClick);
   }
   if (data.attri != null) {
