@@ -41,15 +41,12 @@ Render({
   styleClass: 'new-todo',
   attributes: { id: 'new-todo', placeholder: 'What needs to be done?' },
   onKeyDown: () => {
-    Point('contentFilters').className = 'contentFilters'
-    Point('contentFilters').style.display = 'block'
     StoreItem('Todo', Point('new-todo').value);
+    Point('contentFilters').classList.remove('hide');
     Point('new-todo').value = '';
     Point('ToDoContainer').innerHTML = '';
     GetItems('Todo').forEach(([key, value]) => renderTodo(key, value));
-    Point('listCount').innerHTML = `${StorageBooleanCount(
-      'Todo'
-    )} items left!`;
+    Point('listCount').innerHTML = `${StorageBooleanCount('Todo')} items left!`;
   },
 });
 
@@ -60,9 +57,6 @@ Render({
   styleClass: 'menuContainer',
   attri: ['id', 'Menu'],
 });
-
-// Menu buttons
-// CreateMenu();
 
 // content container inside Main Container
 Render({
@@ -83,7 +77,8 @@ Render({
 Render({
   parent: 'Content',
   element: 'div',
-  styleClass: GetItems('Todo') ? 'contentFilters': '',
+  styleClass:
+    GetItems('Todo').length > 0 ? 'contentFilters' : 'contentFilters hide',
   attri: ['id', 'contentFilters'],
 });
 
@@ -96,12 +91,38 @@ Render({
 });
 
 // iterate items to parent
-let items = GetItems('Todo');
-if(items !== null) {
-  items.forEach(([key, value]) => {
+GetItems('Todo').forEach(([key, value]) => {
+  renderTodo(key, value);
+});
+
+// Menu buttons
+CreateMenu();
+
+export const GetAllTodo = () => {
+  Point('ToDoContainer').innerHTML = '';
+  GetItems('Todo').forEach(([key, value]) => {
     renderTodo(key, value);
   });
-}
+};
+
+export const GetCompletedTodo = () => {
+  Point('ToDoContainer').innerHTML = '';
+  GetItems('Todo').forEach(([key, value]) => {
+    if (value[1] == 'true' || value[1] == true) {
+      renderTodo(key, value);
+    }
+  });
+};
+
+export const GetActiveTodo = () => {
+  Point('ToDoContainer').innerHTML = '';
+  GetItems('Todo').forEach(([key, value]) => {
+    console.log(value);
+    if (value[1] == 'false' || value[1] == false) {
+      renderTodo(key, value);
+    }
+  });
+};
 
 function renderTodo(key, value) {
   Render({
@@ -172,14 +193,11 @@ function renderTodo(key, value) {
     attributes: { id: key },
     content: 'X',
     onClick: (e) => {
-      DeleteItem('Todo', e.target.id);;
-      Point(key + 'list').remove()
+      DeleteItem('Todo', e.target.id);
+      Point(key + 'list').remove();
       Point('listCount').innerHTML = `${StorageBooleanCount(
         'Todo'
       )} items left!`;
-      if (GetItems('Todo') == null) {
-        Point('contentFilters').style.display = 'none'
-      }
     },
   });
 }

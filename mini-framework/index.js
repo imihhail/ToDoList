@@ -14,11 +14,12 @@ export const NewElement = (tag, elClass, elText) => {
 };
 
 export const GetItems = (key) => {
-  let listObject = JSON.parse(localStorage.getItem(key));
-  if (listObject == null) {
-    return null;
+  const data = localStorage.getItem(key);
+  if (data) {
+    let listObject = JSON.parse(data);
+    return Object.entries(listObject);
   }
-  return Object.entries(listObject);
+  return [];
 };
 
 export const DeleteItem = (key, valueId) => {
@@ -28,10 +29,10 @@ export const DeleteItem = (key, valueId) => {
   let filteredObject = Object.fromEntries(filteredValues);
   localStorage.setItem(key, JSON.stringify(filteredObject));
 
-  let keyCheck = localStorage.getItem(key)
+  let keyCheck = localStorage.getItem(key);
 
   if (keyCheck == '{}') {
-    localStorage.removeItem(key)
+    localStorage.removeItem(key);
   }
 };
 
@@ -81,12 +82,12 @@ export const ToggleItemValue = (key, value, uuid) => {
 export const StorageBooleanCount = (key) => {
   let trueCount = 0;
   let falseCount = 0;
-  let item = localStorage.getItem(key)
+  let item = localStorage.getItem(key);
 
   if (item != null) {
     let existingValue = Object.entries(JSON.parse(item));
     existingValue.forEach((valuepair) =>
-    valuepair[1][1] == true ? trueCount++ : falseCount++
+      valuepair[1][1] == true ? trueCount++ : falseCount++
     );
   }
   return trueCount, falseCount;
@@ -123,39 +124,21 @@ export const Render = (data) => {
     let attributes = Object.entries(data.attributes);
     attributes.forEach((attr) => element.setAttribute(attr[0], attr[1]));
   }
-  if (data.attri != null) {
-    element.setAttribute(data.attri[0], data.attri[1]);
-  }
   return element;
 };
 
 export const Route = (data) => {
   let element = NewElement(data.element, data.styleClass, data.content);
-
   if (data.onClick != null) {
     element.addEventListener('click', data.onClick);
   }
   if (data.attri != null) {
     element.setAttribute(data.attri[0], data.attri[1]);
   }
-
   Point(data.parent).appendChild(element);
   if (data.where != null) {
     element.addEventListener('click', () => {
       window.history.pushState({}, '', data.where);
-
-      let parent = Point(data.contentParent);
-      parent.innerHTML = '';
-
-      let child = Render({
-        parent: data.contentParent,
-        element: data.contentToAdd.element,
-        styleClass: data.contentToAdd.styleClass,
-        content: data.contentToAdd.content,
-        attri: ['id', data.contentToAdd.attri[1]],
-      });
-
-      parent.appendChild(child);
     });
   }
 };

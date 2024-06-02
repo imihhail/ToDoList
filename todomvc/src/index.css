@@ -118,6 +118,8 @@ input[type='checkbox']:checked::after {
 
 
 .contentFilters {
+  display: flex;
+  align-items: center;
   margin: auto;
   width: 35rem;
   border: 1px solid rgba(31, 30, 30, 0.2);
@@ -125,4 +127,24 @@ input[type='checkbox']:checked::after {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 8px 0 -3px #f6f6f6,
     0 9px 1px -3px rgba(0, 0, 0, 0.2), 0 16px 0 -6px #f6f6f6,
     0 17px 2px -6px rgba(0, 0, 0, 0.2);
+}
+
+.hide {
+  display: none;
+}
+
+.contentFilters .activityButton{
+  padding: 0.5rem;
+  background: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+.contentFilters .activityButton:hover{
+  border: 1px solid red;
+}
+.contentFilters .activityButton:nth-child(2){
+  margin-left: auto;
+}
+.contentFilters .activityButton:last-child{
+  margin-right: auto;
 }
