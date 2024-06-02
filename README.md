@@ -101,14 +101,14 @@ Example:
 
 ```bash
 Render({
-element: "string", // node tag
-styleClass: "string", // node class
-content: "string", // node content
-onClick: function, // on click function to activate
-onKeyDown, function, // activate function on keyboard enter press
-attri: array["string", "string"] // apply attribute to node
-parent: "string", parent node, // append node to this parent
-attributes: object, // append multiple attributes to node
+    element: "string", // node tag
+    styleClass: "string", // node class
+    content: "string", // node content
+    onClick: function, // on click function to activate
+    onKeyDown, function, // activate function on keyboard enter press
+    attri: array["string", "string"] // apply attribute to node
+    parent: "string", parent node, // append node to this parent
+    attributes: object, // append multiple attributes to node
 })
 ```
 
@@ -122,14 +122,24 @@ Example:
 
 ```bash
 Route({
-parent: "string", // append node to this parent
-element: "string", // node tag
-styleClass: "string", // node class
-content: "string", // node content
-attri: array["string", "string"], // apply attribute to a node
-where: "string", // url path where onClick redirects
-onClick: function, // activate function on mouse click
+    parent: "string", // append node to this parent
+    element: "string", // node tag
+    styleClass: "string", // node class
+    content: "string", // node content
+    attri: array["string", "string"], // apply attribute to a node
+    where: "string", // url path where onClick redirects
+    onClick: function, // activate function on mouse click
 })
+
+Route({
+    parent: 'contentFilters',
+    element: 'button',
+    styleClass: 'activityButton',
+    content: 'All',
+    attri: ['id', 'All'],
+    where: '/',
+    onClick: () => GetAllTodo(),
+});
 ```
 
 #### Prerequisites
