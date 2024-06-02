@@ -64,6 +64,21 @@ export const ToggleItemBoolean = (key, value, bool) => {
   localStorage.setItem(key, JSON.stringify(filteredObject));
 };
 
+export const ToggleItemValue = (key, value, uuid) => {
+  let existingValue = Object.entries(JSON.parse(localStorage.getItem(key)));
+
+  let toggledObject = existingValue.map((valuepair) => {
+    if (valuepair[0] == uuid) {
+      valuepair[1][0] = value;
+      return valuepair;
+    }
+    return valuepair;
+  });
+
+  let filteredObject = Object.fromEntries(toggledObject);
+  localStorage.setItem(key, JSON.stringify(filteredObject));
+};
+
 export const StorageBooleanCount = (key) => {
   let trueCount = 0;
   let falseCount = 0;
@@ -88,6 +103,9 @@ export const Render = (data) => {
 
   if (data.onClick != null) {
     element.addEventListener('click', data.onClick);
+  }
+  if (data.onDblClick != null) {
+    element.addEventListener('dblclick', data.onDblClick);
   }
   if (data.onKeyDown != null) {
     element.addEventListener('keydown', (e) => {

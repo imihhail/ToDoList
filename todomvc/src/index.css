@@ -65,6 +65,17 @@
   font-size: 1.7rem;
 }
 
+.editTodo {
+  margin: auto;
+  width: 35rem;
+  display: flex;
+  justify-content: space-between;
+  padding: 1.3rem;
+  font-size: 1.7rem;
+  padding-left: 4.4rem;
+  outline: 2px solid hsl(0, 86%, 68%);
+}
+
 .deletebutton {
   background: none;
   border: none;
