@@ -117,9 +117,19 @@ export const GetCompletedTodo = () => {
 export const GetActiveTodo = () => {
   Point('ToDoContainer').innerHTML = '';
   GetItems('Todo').forEach(([key, value]) => {
-    console.log(value);
     if (value[1] == 'false' || value[1] == false) {
       renderTodo(key, value);
+    }
+  });
+};
+
+export const ClearCompleted = () => {
+  Point('ToDoContainer').innerHTML = '';
+  GetItems('Todo').forEach(([key, value]) => {
+    if (value[1] == 'false' || value[1] == false) {
+      renderTodo(key, value);
+    } else {
+      DeleteItem('Todo', key);
     }
   });
 };
@@ -157,34 +167,33 @@ function renderTodo(key, value) {
     attributes: { id: key },
     content: value[0],
     onDblClick: (e) => {
-        Render({
-          parent: key,
-          element: 'input',
-          styleClass: 'editTodo',
-          attributes: { id: key + 'input' },
-          onKeyDown: () => Point(key + 'input').blur()
-        })
+      Render({
+        parent: key,
+        element: 'input',
+        styleClass: 'editTodo',
+        attributes: { id: key + 'input' },
+        onKeyDown: () => Point(key + 'input').blur(),
+      });
 
-        let editingList = Point(key + 'list')
-        Point(key + 'input').value = e.target.innerText;
-        
-        editingList.replaceWith(Point(key+'input'));
-   
-        Point(key + 'input').onblur = () => {
-          ToggleItemValue('Todo', Point(key + 'input').value, key)
+      let editingList = Point(key + 'list');
+      Point(key + 'input').value = e.target.innerText;
 
-          let changedText = Point(key + 'input').value
-          let paragraph = editingList.querySelector('p.TodoStyle')
+      editingList.replaceWith(Point(key + 'input'));
 
-          paragraph.textContent = changedText
-      
-          Point(key + 'input').replaceWith(editingList)
-        }
+      Point(key + 'input').onblur = () => {
+        ToggleItemValue('Todo', Point(key + 'input').value, key);
 
-        Point(key + 'input').focus()
+        let changedText = Point(key + 'input').value;
+        let paragraph = editingList.querySelector('p.TodoStyle');
+
+        paragraph.textContent = changedText;
+
+        Point(key + 'input').replaceWith(editingList);
+      };
+
+      Point(key + 'input').focus();
     },
-})
-
+  });
 
   Render({
     parent: key + 'list',

@@ -1,5 +1,5 @@
 import { Route } from '../../mini-framework/index';
-import { GetAllTodo, GetCompletedTodo, GetActiveTodo } from './index.js';
+import { GetAllTodo, GetCompletedTodo, GetActiveTodo, ClearCompleted } from './index.js';
 
 export function CreateMenu() {
   // route button that switches all Content data to All toDo list
@@ -33,5 +33,16 @@ export function CreateMenu() {
     attri: ['id', 'Completed'],
     where: '/completed',
     onClick: () => GetCompletedTodo(),
+  });
+
+  // route button that switches all Content data to Completed toDo list
+  Route({
+    parent: 'contentFilters',
+    element: 'button',
+    styleClass: 'activityButton',
+    content: 'Clear Completed',
+    attri: ['id', 'Completed'],
+    where: '/',
+    onClick: () => ClearCompleted(),
   });
 }
