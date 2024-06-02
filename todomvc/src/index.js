@@ -61,8 +61,7 @@ Render({
 });
 
 // Menu buttons
-// CreateMenu();
-
+CreateMenu();
 // content container inside Main Container
 Render({
   parent: 'Container',
@@ -96,11 +95,34 @@ Render({
 
 // iterate items to parent
 let items = GetItems('Todo');
-if(items !== null) {
-  items.forEach(([key, value]) => {
-    renderTodo(key, value);
-  });
-}
+
+export const getAllTodo = () => {
+  if(items !== null) {
+    items.forEach(([key, value]) => {
+      renderTodo(key, value);
+    });
+  }
+};
+
+export const getCompletedTodo = () => {
+  if(items !== null) {
+    items.forEach(([key, value]) => {
+      if(value[1] === true) {
+        renderTodo(key, value);
+      }
+    });
+  }
+};
+
+export const getActiveTodo = () => {
+  if(items !== null) {
+    items.forEach(([key, value]) => {
+      if(value[1] === false) {
+        renderTodo(key, value);
+      }
+    });
+  }
+};
 
 function renderTodo(key, value) {
   Render({

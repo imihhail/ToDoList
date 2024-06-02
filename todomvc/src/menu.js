@@ -1,4 +1,5 @@
 import { Route } from '../../mini-framework/index';
+import { GetAllTodo, GetCompletedTodo, GetActiveTodo } from './helper.js';
 
 export function CreateMenu() {
 
@@ -6,12 +7,12 @@ export function CreateMenu() {
   Route({
     parent: 'Menu',
     element: 'button',
-    styleClass: 'buttom',
-    content: 'Home',
-    attri: ['id', 'home'],
-    where: '/home',
-    contentParent: 'Content',
-    contentToAdd: homePoint,
+    styleClass: 'button',
+    content: 'All',
+    attri: ['id', 'All'],
+    where: '/',
+    contentParent: 'ToDoContainer',
+    onClick: GetAllTodo,
   });
 
   // route button that switches all Content data to hello1
@@ -19,11 +20,11 @@ export function CreateMenu() {
     parent: 'Menu',
     element: 'button',
     styleClass: 'buttom',
-    content: 'Hello',
-    attri: ['id', 'hello'],
-    where: '/hello',
-    contentParent: 'Content',
-    contentToAdd: helloPoint,
+    content: 'Completed',
+    attri: ['id', 'Completed'],
+    where: '/completed',
+    contentParent: 'ToDoContainer',
+    onClick: GetCompletedTodo,
   });
 
   // route button that switches all Content data to original toDo list
@@ -31,37 +32,10 @@ export function CreateMenu() {
     parent: 'Menu',
     element: 'button',
     styleClass: 'buttom',
-    content: 'Original',
-    attri: ['id', 'original'],
-    where: '/',
-    contentParent: 'Content',
-    contentToAdd: originalPoint,
+    content: 'Active',
+    attri: ['id', 'Active'],
+    where: '/active',
+    contentParent: 'ToDoContainer',
+    onClick: GetActiveTodo,
   });
 }
-
-// home item to be switched
-const homePoint = {
-  parent: 'Content',
-  element: 'p',
-  styleClass: 'homeStyle',
-  content: 'Home content!',
-  attri: ['id', 'home1'],
-};
-
-// hello item to be switched
-const helloPoint = {
-  parent: 'Content',
-  element: 'p',
-  styleClass: 'helloStyle',
-  content: 'Hello content',
-  attri: ['id', 'hello1'],
-};
-
-// in the future all toDo list items to be switched
-const originalPoint = {
-  // parent: 'Content',
-  element: 'p',
-  styleClass: 'originalStyle',
-  content: 'original to Do content',
-  attri: ['id', 'original1'],
-};

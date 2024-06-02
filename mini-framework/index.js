@@ -120,7 +120,7 @@ export const Route = (data) => {
   if (data.attri != null) {
     element.setAttribute(data.attri[0], data.attri[1]);
   }
-
+  console.log(data)
   Point(data.parent).appendChild(element);
   if (data.where != null) {
     element.addEventListener('click', () => {
@@ -128,16 +128,8 @@ export const Route = (data) => {
 
       let parent = Point(data.contentParent);
       parent.innerHTML = '';
-
-      let child = Render({
-        parent: data.contentParent,
-        element: data.contentToAdd.element,
-        styleClass: data.contentToAdd.styleClass,
-        content: data.contentToAdd.content,
-        attri: ['id', data.contentToAdd.attri[1]],
-      });
-
-      parent.appendChild(child);
+      console.log(data.onClick)
+      parent.appendChild(data.onClick);
     });
   }
 };
