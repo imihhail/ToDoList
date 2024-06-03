@@ -73,18 +73,27 @@
   padding: 1.3rem;
   font-size: 1.7rem;
   padding-left: 4.4rem;
-  outline: 2px solid hsl(0, 86%, 68%);
+  outline: 3px solid rgba(236, 77, 77, 0.5);
+  border: none;
 }
 
 .deletebutton {
+  transform: rotate(45deg);
   background: none;
   border: none;
   visibility: hidden;
   cursor: pointer;
   font-size: 1.3rem;
+  scale: 1.9;
+  opacity: 0.5;
 }
+
 .list:hover .deletebutton {
   visibility: visible;
+}
+
+.deletebutton:hover {
+  color: #b83f45;
 }
 
 input[type='checkbox'] {
@@ -95,10 +104,10 @@ input[type='checkbox'] {
   width: 30px;
   height: 30px;
   border: 2px solid #ccc;
-  border-radius: 50%; /* Make it round */
+  border-radius: 50%; 
   outline: none;
   cursor: pointer;
-  background-color: white; /* Set default background color */
+  background-color: white; 
 }
 
 input[type='checkbox']:checked {
@@ -115,7 +124,6 @@ input[type='checkbox']:checked::after {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-
 
 .contentFilters {
   display: flex;
@@ -146,5 +154,5 @@ input[type='checkbox']:checked::after {
   margin-left: auto;
 }
 .contentFilters .activityButton:last-child{
-  margin-right: auto;
+  margin-left: 50px;
 }

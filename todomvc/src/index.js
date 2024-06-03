@@ -82,7 +82,7 @@ Render({
   parent: 'Content',
   element: 'div',
   styleClass:
-    GetItems('Todo').length > 0 ? 'contentFilters' : 'contentFilters hide',
+    GetItems('Todo').length != 0 ? 'contentFilters' : 'contentFilters hide',
   attri: ['id', 'contentFilters'],
 });
 
@@ -135,6 +135,8 @@ export const ClearCompleted = () => {
     } else {
       DeleteItem('Todo', key);
     }
+    if (GetItems('Todo').length == 0)
+      Point('contentFilters').classList.add('hide');
   });
 };
 
@@ -156,19 +158,20 @@ function renderTodo(key, value) {
       Point('listCount').innerHTML = `${StorageBooleanCount(
         'Todo'
       )} items left!`;
+      Point(key+'text').style.textDecoration = 'line-through'
+      Point(key+'text').style.opacity = '0.5'
+      if (!e.target.checked) {
+        Point(key+'text').style.opacity = '1'
+        Point(key+'text').style.textDecoration = 'none'
+      }
     },
   });
-
-  const yourCheckbox = document.getElementById(`${key}`);
-  if (value[1] == true) {
-    yourCheckbox.checked = true;
-  }
 
   Render({
     parent: key + 'list',
     element: 'p',
     styleClass: 'TodoStyle',
-    attributes: { id: key },
+    attributes: { id: key+'text' },
     content: value[0],
     onDblClick: (e) => {
       Render({
@@ -204,13 +207,22 @@ function renderTodo(key, value) {
     element: 'button',
     styleClass: 'deletebutton',
     attributes: { id: key },
-    content: 'X',
+    content: '+',
     onClick: (e) => {
       DeleteItem('Todo', e.target.id);
       Point(key + 'list').remove();
       Point('listCount').innerHTML = `${StorageBooleanCount(
         'Todo'
       )} items left!`;
+      if (GetItems('Todo').length == 0)
+      Point('contentFilters').classList.add('hide');
     },
   });
+
+  const yourCheckbox = document.getElementById(`${key}`);
+  if (value[1] == true) {
+    Point(key+'text').style.textDecoration = 'line-through'
+    Point(key+'text').style.opacity = '0.5'
+    yourCheckbox.checked = true;
+  }
 }
