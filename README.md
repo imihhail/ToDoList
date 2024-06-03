@@ -25,6 +25,7 @@ To run the To-Do MVC project created from the mini-framework
 ```bash
 git clone repo
 cd todomvc
+npm install
 npm run start
 ```
 
